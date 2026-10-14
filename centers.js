@@ -19,6 +19,8 @@ window.GYRO_CENTERS = [
   { name: '뉴트럴 스튜디오', area: '경기 화성시 동탄', address: '경기 화성시 동탄공원로 36, 3층', lessons: true, gyrokinesis: null, special: ['아치웨이', '점핑 스트레칭 보드'], training: [], website: null, instagram: null },
   { name: '자이로토닉 아이디얼바디', area: '경기 수원시 권선구', address: '경기 수원시 권선구 권선로720번길 41, 1층', lessons: true, gyrokinesis: null, special: ['레그 익스텐션'], training: ['점핑 스트레칭 보드 · 레그 익스텐션 과정'], website: null, instagram: null },
   { name: '자이로토닉 청담', area: '서울 강남구 청담동', address: '서울 강남구 학동로101길 33, 3층', lessons: true, gyrokinesis: null, special: ['아치웨이', '점핑 스트레칭 보드', '레그 익스텐션', '자이로토너'], training: [], website: null, instagram: 'gyrotonic_cheongdam_official' },
+  { name: '아든 필라테스', area: '부산 남구', address: '부산 남구 진남로127번길 8', lessons: null, gyrokinesis: null, special: [], training: [], website: null, instagram: null },
+  { name: '후스파인', area: '전북 전주', address: null, lessons: null, gyrokinesis: null, special: [], training: [], website: null, instagram: null },
   { name: '자이로토닉 플리에', area: '서울 광진구', address: null, lessons: null, gyrokinesis: null, special: [], training: [], website: null, instagram: null },
   { name: '자이로토닉 누크', area: '제주', address: null, lessons: null, gyrokinesis: null, special: [], training: [], website: null, instagram: null },
   { name: '제이앤에스 바디플로우', area: '서울 종로구', address: '서울 종로구 이화장길 54, 2층', lessons: true, gyrokinesis: null, special: ['아치웨이', '점핑 스트레칭 보드', '레그 익스텐션', '자이로토너'], training: ['자이로토닉 프리 · 파운데이션 · 어프렌티스 · 최종 인증', '자이로키네시스 프리 · 파운데이션 · 어프렌티스 · 최종 인증', '스페셜 머신 과정'], website: null, instagram: 'jns_sunmi.shim' },
