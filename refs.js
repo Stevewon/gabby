@@ -7,7 +7,7 @@ window.GYRO_REFS = [
   { name: '공식 코스 파인더', kind: '공식', place: '전 세계', url: 'https://www.gyrotonic.com/teacher-training/course-finder/', desc: '국가 · 과정별 공식 지도자 교육 일정 검색' },
   { name: '공식 스튜디오 찾기', kind: '공식', place: '전 세계', url: 'https://www.gyrotonic.com/studios/', desc: '전 세계 공인 자이로토닉 스튜디오 검색' },
   { name: '공식 YouTube', kind: '자료', place: '공식', url: 'https://www.youtube.com/user/GyrotonicHQVideos/', desc: '본부 공식 영상 채널, 메소드 시연 영상' },
-  { name: '공식 Instagram @gyrotonic', kind: '공식', place: '공식', url: 'https://www.instagram.com/gyrotonic/', desc: '본부 공식 인스타그램, 최신 소식' },
+  { name: '공식 Instagram @gyrotonic', kind: '공식', place: '미국 · SNS', url: 'https://www.instagram.com/gyrotonic/', desc: '본부 공식 인스타그램, 최신 소식' },
   { name: 'GYROTONIC® Frankfurt Center', kind: '교육센터', place: '독일 프랑크푸르트', url: 'https://www.praxis-laemmerhirt.de/gyrotonic-frankfurt-center/', desc: '독일에서 교육 과정이 가장 많은 센터' },
   { name: 'Studio Anke Hauerstein', kind: '교육센터', place: '독일 베를린', url: 'https://www.ankehauerstein.de/en/', desc: '베를린의 지도자 교육 스튜디오' },
   { name: 'GYROTONIC® Soho – Movement Beyond', kind: '교육센터', place: '미국 뉴욕', url: 'https://www.movementbeyond.com/', desc: '뉴욕 소호의 지도자 교육 센터' },
