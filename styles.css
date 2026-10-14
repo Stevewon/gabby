@@ -371,3 +371,25 @@ img { max-width: 100%; display: block; }
   .equip-list { grid-template-columns: repeat(3, 1fr); }
   .equip-chips { grid-template-columns: repeat(4, 1fr); }
 }
+
+/* Education centers directory */
+.centers { border-top: 1px solid var(--line); }
+.center-legend { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 18px; }
+.center-legend span, .center-tags span {
+  font-size: 12px; padding: 4px 10px; border-radius: 999px; border: 1px solid var(--line); color: var(--ink-soft); background: var(--surface);
+}
+.center-tags span.on { background: var(--accent-dark); border-color: var(--accent-dark); color: #fff; }
+.center-list { display: grid; gap: 10px; margin-top: 18px; }
+.center {
+  background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 16px 18px;
+}
+.center-head { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; }
+.center h3 { font-size: 16.5px; font-weight: 700; }
+.center-area { font-size: 12.5px; color: var(--clay); white-space: nowrap; }
+.center-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+.center-detail strong { color: var(--ink); font-weight: 700; margin-right: 4px; }
+.center-detail { font-size: 13px; color: var(--ink-soft); margin-top: 10px; line-height: 1.6; }
+.center-links { display: flex; gap: 14px; margin-top: 10px; font-size: 13px; font-weight: 500; }
+.center-links a { color: var(--accent-dark); padding: 4px 0; }
+.center-note { font-size: 12px; color: var(--ink-soft); margin-top: 16px; line-height: 1.6; }
+@media (min-width: 768px) { .center-list { grid-template-columns: repeat(2, 1fr); } }
