@@ -1,12 +1,11 @@
-# 사진 넣는 곳
+# 사진
 
-아래 이름으로 사진(jpg)을 이 폴더에 넣으면 사이트에 자동으로 나타납니다.
-파일이 없으면 기본 색 배경이 보입니다.
+사진은 개비스튜디오 네이버 블로그(blog.naver.com/gabbystory)에서 가져왔습니다.
+같은 파일 이름으로 바꿔 넣으면 사이트에 그대로 반영됩니다.
 
-| 파일 이름 | 들어가는 곳 |
+| 파일 | 위치 |
 |---|---|
-| program-gyrotonic.jpg | 프로그램 – 자이로토닉 카드 |
-| program-gyrokinesis.jpg | 프로그램 – 자이로키네시스 카드 |
-| program-pilates.jpg | 프로그램 – 재활 필라테스 카드 |
-| program-lymph.jpg | 프로그램 – 림프순환 운동 카드 |
-| profile.jpg | 로고 (인스타그램 프로필 사진) |
+| hero.jpg | 첫 화면 배경 |
+| program-*.jpg | 프로그램 카드 4개 |
+| gallery-1~7.jpg | 스튜디오 사진 |
+| profile.jpg | 로고 |
