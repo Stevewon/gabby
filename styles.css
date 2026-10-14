@@ -348,3 +348,26 @@ img { max-width: 100%; display: block; }
   .gallery-grid { grid-template-columns: repeat(4, 1fr); }
   .gallery-grid img:first-child { grid-column: span 2; grid-row: span 2; aspect-ratio: auto; height: 100%; }
 }
+
+/* Equipment */
+.equipment { border-top: 1px solid var(--line); }
+.equip-group { font-size: 13px; letter-spacing: .12em; color: var(--accent-dark); font-weight: 700; margin: 34px 0 14px; }
+.equip-list { display: grid; gap: 12px; }
+.equip {
+  background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden;
+}
+.equip img { width: 100%; aspect-ratio: 16 / 10; object-fit: cover; display: block; background: #fff; }
+.equip img.contain { object-fit: cover; aspect-ratio: 1 / 1; object-position: 50% 40%; }
+.equip > div { padding: 16px 18px 20px; }
+.equip-tag { font-size: 11.5px; letter-spacing: .08em; color: var(--clay); font-weight: 500; }
+.equip h4 { font-family: var(--serif); font-size: 20px; font-weight: 600; margin: 2px 0 6px; }
+.equip p:not(.equip-tag) { font-size: 14px; color: var(--ink-soft); }
+.equip-photo { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: var(--radius); }
+.equip-chips { list-style: none; display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; margin-top: 10px; }
+.equip-chips li { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 14px; }
+.equip-chips strong { display: block; font-size: 15.5px; font-weight: 700; }
+.equip-chips span { display: block; font-size: 12.5px; color: var(--ink-soft); line-height: 1.5; margin-top: 4px; }
+@media (min-width: 768px) {
+  .equip-list { grid-template-columns: repeat(3, 1fr); }
+  .equip-chips { grid-template-columns: repeat(4, 1fr); }
+}
