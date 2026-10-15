@@ -1,0 +1,468 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>사진 관리 | 개비스튜디오</title>
+  <style>
+    :root {
+      --bg: #f6f1ea; --surface: #fffdf9; --ink: #2f2a25; --soft: #6b6158;
+      --accent: #4f7f45; --line: rgba(47, 42, 37, .14); --danger: #b3412e;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: "Noto Sans KR", system-ui, -apple-system, sans-serif; background: var(--bg); color: var(--ink); line-height: 1.6; word-break: keep-all; }
+    header { position: sticky; top: 0; z-index: 5; display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 14px 16px; background: rgba(246, 241, 234, .95); border-bottom: 1px solid var(--line); }
+    header h1 { font-size: 16px; letter-spacing: .04em; }
+    header .links { display: flex; gap: 8px; flex-wrap: wrap; }
+    main { max-width: 1080px; margin: 0 auto; padding: 20px 16px 80px; }
+    .card { background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 22px 20px; }
+    .auth { max-width: 420px; margin: 40px auto; }
+    .auth h2 { font-size: 20px; margin-bottom: 6px; }
+    .auth p.desc { font-size: 13.5px; color: var(--soft); margin-bottom: 16px; }
+    label { display: block; font-size: 13px; font-weight: 500; margin: 12px 0 4px; }
+    input[type=text], input[type=password] { width: 100%; height: 46px; border: 1px solid var(--line); border-radius: 10px; padding: 0 12px; font-size: 16px; background: #fff; }
+    .hint { font-size: 12px; color: var(--soft); margin-top: 4px; }
+    .hint a { color: var(--accent); }
+    button, .btn { display: inline-flex; align-items: center; justify-content: center; height: 44px; padding: 0 18px; border-radius: 999px; border: 1px solid var(--line); background: #fff; font: inherit; font-size: 14px; font-weight: 500; cursor: pointer; color: var(--ink); text-decoration: none; }
+    button.primary { background: var(--ink); color: #fff; border-color: var(--ink); }
+    button.small, .btn.small { height: 36px; padding: 0 14px; font-size: 13px; }
+    button:disabled { opacity: .5; cursor: default; }
+    .full { width: 100%; margin-top: 18px; }
+    .msg { margin-top: 12px; font-size: 13.5px; min-height: 1.2em; }
+    .msg.err { color: var(--danger); }
+    .msg.ok { color: var(--accent); }
+    .group { margin-top: 34px; }
+    .group h2 { font-size: 18px; }
+    .group > p { font-size: 13px; color: var(--soft); }
+    .grid { display: grid; grid-template-columns: 1fr; gap: 14px; margin-top: 14px; }
+    @media (min-width: 640px) { .grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (min-width: 960px) { .grid { grid-template-columns: repeat(3, 1fr); } }
+    .slot { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; overflow: hidden; display: flex; flex-direction: column; }
+    .slot .pic { aspect-ratio: 4 / 3; background: #e9e2d8 center / cover no-repeat; position: relative; }
+    .slot .pic img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .slot .pic .badge { position: absolute; top: 8px; left: 8px; background: var(--accent); color: #fff; font-size: 11.5px; padding: 3px 9px; border-radius: 999px; }
+    .slot .body { padding: 12px 14px 14px; display: flex; flex-direction: column; gap: 4px; flex: 1; }
+    .slot strong { font-size: 14.5px; }
+    .slot .where { font-size: 12px; color: var(--soft); }
+    .slot .file { font-size: 11px; color: #9a9087; }
+    .slot .actions { display: flex; gap: 8px; margin-top: auto; padding-top: 10px; flex-wrap: wrap; }
+    .slot .status { font-size: 12.5px; }
+    .slot .status.err { color: var(--danger); }
+    .slot .status.ok { color: var(--accent); }
+    .notice { margin-top: 14px; padding: 14px 16px; border-radius: 12px; background: #eef3ea; font-size: 13.5px; color: #33512d; }
+    .settings { display: grid; gap: 14px; grid-template-columns: 1fr; margin-top: 14px; }
+    @media (min-width: 760px) { .settings { grid-template-columns: 1fr 1fr; } }
+    .settings h3 { font-size: 16px; }
+    [hidden] { display: none !important; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>GABBY STUDIO · 사진 관리</h1>
+    <div class="links">
+      <a class="btn small" href="../" target="_blank" rel="noopener">사이트 보기</a>
+      <button class="small" id="logout" hidden>로그아웃</button>
+    </div>
+  </header>
+
+  <main>
+    <p class="msg" id="boot">불러오는 중…</p>
+
+    <!-- 처음 설정 -->
+    <section class="card auth" id="setup" hidden>
+      <h2>관리자 처음 설정</h2>
+      <p class="desc">처음 한 번만 합니다. 사용할 아이디와 비밀번호를 정하고, GitHub에서 발급한 사이트 저장 키를 붙여 넣어 주세요.</p>
+      <form id="setup-form">
+        <label for="s-id">아이디</label>
+        <input type="text" id="s-id" autocomplete="username" required>
+        <label for="s-pw">비밀번호</label>
+        <input type="password" id="s-pw" autocomplete="new-password" required>
+        <p class="hint">10자 이상, 영문과 숫자를 섞어 주세요.</p>
+        <label for="s-pw2">비밀번호 확인</label>
+        <input type="password" id="s-pw2" autocomplete="new-password" required>
+        <label for="s-token">GitHub 저장 키</label>
+        <input type="password" id="s-token" autocomplete="off" placeholder="github_pat_로 시작" required>
+        <p class="hint"><a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener">여기서 발급</a> · 저장소는 Stevewon/gabby 하나만, 권한은 Contents: Read and write</p>
+        <button class="primary full" type="submit">설정 완료</button>
+        <p class="msg" id="setup-msg"></p>
+      </form>
+    </section>
+
+    <!-- 로그인 -->
+    <section class="card auth" id="login" hidden>
+      <h2>관리자 로그인</h2>
+      <p class="desc">사이트 사진을 바꾸려면 로그인해 주세요.</p>
+      <form id="login-form">
+        <label for="l-id">아이디</label>
+        <input type="text" id="l-id" autocomplete="username" required>
+        <label for="l-pw">비밀번호</label>
+        <input type="password" id="l-pw" autocomplete="current-password" required>
+        <button class="primary full" type="submit">로그인</button>
+        <p class="msg" id="login-msg"></p>
+      </form>
+    </section>
+
+    <!-- 관리 화면 -->
+    <section id="dash" hidden>
+      <div class="notice">사진을 고르면 미리보기가 나오고, <b>저장</b>을 누르면 사이트에 올라갑니다. 사이트에는 <b>보통 1~3분, 늦으면 10분 안에</b> 반영되며, 휴대폰으로 찍은 큰 사진도 자동으로 알맞은 크기로 줄여서 올립니다. 영어·일본어 페이지도 같은 사진을 함께 씁니다.</div>
+      <div id="groups"></div>
+
+      <div class="group">
+        <h2>계정 설정</h2>
+        <div class="settings">
+          <form class="card" id="pw-form">
+            <h3>비밀번호 변경</h3>
+            <label for="p-id">아이디 (바꾸려면 새 아이디 입력)</label>
+            <input type="text" id="p-id" autocomplete="username" required>
+            <label for="p-cur">현재 비밀번호</label>
+            <input type="password" id="p-cur" autocomplete="current-password" required>
+            <label for="p-new">새 비밀번호</label>
+            <input type="password" id="p-new" autocomplete="new-password" required>
+            <p class="hint">10자 이상, 영문과 숫자를 섞어 주세요.</p>
+            <label for="p-new2">새 비밀번호 확인</label>
+            <input type="password" id="p-new2" autocomplete="new-password" required>
+            <button class="primary full" type="submit">변경하기</button>
+            <p class="msg" id="pw-msg"></p>
+          </form>
+          <form class="card" id="tk-form">
+            <h3>GitHub 저장 키 교체</h3>
+            <p class="hint">저장할 때 "키가 만료되었습니다"가 나오면 새 키를 발급받아 여기에 넣어 주세요. <a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener">새 키 발급</a></p>
+            <label for="t-pw">현재 비밀번호</label>
+            <input type="password" id="t-pw" autocomplete="current-password" required>
+            <label for="t-token">새 GitHub 저장 키</label>
+            <input type="password" id="t-token" autocomplete="off" placeholder="github_pat_로 시작" required>
+            <button class="primary full" type="submit">키 교체</button>
+            <p class="msg" id="tk-msg"></p>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+  (() => {
+    const REPO = 'Stevewon/gabby';
+    const BRANCH = 'main';
+    const AUTH_PATH = 'admin/auth.json';
+    const API = 'https://api.github.com/repos/' + REPO;
+    const ITER = 600000;
+    const SITE = location.origin + location.pathname.replace(/admin\/?(index\.html)?$/, '');
+
+    // 사이트 사진 목록: file = images/ 안의 파일명, max = 긴 변 최대 px, square = 정사각형으로 자르기
+    const GROUPS = [
+      { title: '첫 화면 · 공통', desc: '모든 언어의 첫 페이지에 함께 쓰입니다.', slots: [
+        { file: 'hero.jpg', name: '첫 화면 배경', where: '홈 맨 위 큰 사진', max: 2400 },
+        { file: 'profile.jpg', name: '로고 원형 사진', where: '모든 페이지 왼쪽 위 로고', max: 600, square: true },
+      ] },
+      { title: '재활 이야기', desc: '재활 이야기 페이지와 홈의 소개 띠에 쓰입니다.', slots: [
+        { file: 'story-hero.jpg', name: '재활 이야기 배경', where: '재활 이야기 맨 위 · 홈 소개 띠', max: 2400 },
+      ] },
+      { title: '프로그램', desc: '홈 「프로그램」 카드 사진입니다.', slots: [
+        { file: 'program-gyrotonic.jpg', name: '자이로토닉', where: '프로그램 1번째 카드', max: 1400 },
+        { file: 'program-gyrokinesis.jpg', name: '자이로키네시스', where: '프로그램 2번째 카드', max: 1400 },
+        { file: 'program-pilates.jpg', name: '재활 필라테스', where: '프로그램 3번째 카드', max: 1400 },
+        { file: 'program-lymph.jpg', name: '림프순환 운동', where: '프로그램 4번째 카드', max: 1400 },
+      ] },
+      { title: '장비 소개', desc: '홈 「장비 소개」 사진입니다.', slots: [
+        { file: 'equip-pulley.jpg', name: '풀리 타워', where: '자이로토닉 장비 1', max: 1400 },
+        { file: 'equip-archway.jpg', name: '아치웨이', where: '자이로토닉 장비 2', max: 1400 },
+        { file: 'equip-jsb.jpg', name: '점핑 스트레칭 보드', where: '자이로토닉 장비 3', max: 1400 },
+        { file: 'equip-pilates.jpg', name: '필라테스 대기구', where: '필라테스 대기구 큰 사진 (가로로 긴 사진 추천)', max: 2000 },
+      ] },
+      { title: '스튜디오 갤러리', desc: '홈 「개비스튜디오」 사진 모음입니다.', slots: [1, 2, 3, 4, 5, 6, 7].map((n) => (
+        { file: 'gallery-' + n + '.jpg', name: '갤러리 ' + n, where: n >= 6 ? '갤러리 ' + n + '번째 (PC에서 가로로 넓게 보임)' : '갤러리 ' + n + '번째', max: 1800 }
+      )) },
+    ];
+
+    const $ = (id) => document.getElementById(id);
+    const show = (id) => ['setup', 'login', 'dash'].forEach((k) => { $(k).hidden = k !== id; });
+    const setMsg = (el, text, kind) => { el.textContent = text; el.className = 'msg' + (kind ? ' ' + kind : ''); };
+    const enc = new TextEncoder();
+    const b64 = (buf) => btoa(String.fromCharCode(...new Uint8Array(buf)));
+    const unb64 = (s) => Uint8Array.from(atob(s), (c) => c.charCodeAt(0));
+    const strongPw = (pw) => pw.length >= 10 && /[A-Za-z]/.test(pw) && /\d/.test(pw);
+
+    const store = {
+      get: (k) => { try { return sessionStorage.getItem(k); } catch (e) { return null; } },
+      set: (k, v) => { try { sessionStorage.setItem(k, v); } catch (e) { /* 저장 불가 환경 */ } },
+      del: (k) => { try { sessionStorage.removeItem(k); } catch (e) { /* 저장 불가 환경 */ } },
+    };
+
+    let auth = null;      // admin/auth.json 내용
+    let authSha = null;   // auth.json 현재 버전
+    let token = null;     // 로그인 후 메모리에만 보관
+
+    // ---------- 암호화 ----------
+    async function deriveKey(id, pw, salt, iterations) {
+      const base = await crypto.subtle.importKey('raw', enc.encode(pw + '\u0000' + id), 'PBKDF2', false, ['deriveKey']);
+      return crypto.subtle.deriveKey({ name: 'PBKDF2', hash: 'SHA-256', salt, iterations }, base, { name: 'AES-GCM', length: 256 }, false, ['encrypt', 'decrypt']);
+    }
+    async function sealToken(id, pw, tk) {
+      const salt = crypto.getRandomValues(new Uint8Array(16));
+      const iv = crypto.getRandomValues(new Uint8Array(12));
+      const key = await deriveKey(id, pw, salt, ITER);
+      const data = await crypto.subtle.encrypt({ name: 'AES-GCM', iv }, key, enc.encode(tk));
+      return { version: 1, kdf: { name: 'PBKDF2', hash: 'SHA-256', iterations: ITER, salt: b64(salt) }, token: { alg: 'AES-GCM', iv: b64(iv), data: b64(data) } };
+    }
+    async function openToken(id, pw) {
+      const key = await deriveKey(id, pw, unb64(auth.kdf.salt), auth.kdf.iterations);
+      const plain = await crypto.subtle.decrypt({ name: 'AES-GCM', iv: unb64(auth.token.iv) }, key, unb64(auth.token.data));
+      return new TextDecoder().decode(plain);
+    }
+
+    // ---------- GitHub ----------
+    async function gh(path, opts = {}, tk = token) {
+      const res = await fetch(API + path, {
+        ...opts,
+        headers: { Accept: 'application/vnd.github+json', ...(tk ? { Authorization: 'Bearer ' + tk } : {}), ...(opts.headers || {}) },
+        cache: 'no-store',
+      }).catch(() => { throw new Error('인터넷 연결을 확인한 뒤 다시 시도해 주세요.'); });
+      if (res.status === 401) throw new Error('키가 만료되었거나 올바르지 않습니다. 아래 「GitHub 저장 키 교체」에서 새 키를 넣어 주세요.');
+      if (res.status === 403 || res.status === 404) {
+        const body = await res.json().catch(() => ({}));
+        throw Object.assign(new Error('GitHub 권한 오류: ' + (body.message || res.status) + '. 키의 저장소가 Stevewon/gabby, 권한이 Contents: Read and write 인지 확인해 주세요.'), { status: res.status });
+      }
+      if (!res.ok) throw new Error('GitHub 오류 ' + res.status);
+      return res.json();
+    }
+    async function fileSha(path, tk = token) {
+      try { return (await gh('/contents/' + path + '?ref=' + BRANCH, {}, tk)).sha; } catch (e) { if (e.status === 404) return null; throw e; }
+    }
+    async function putFile(path, base64Content, message, tk = token) {
+      const sha = await fileSha(path, tk);
+      return gh('/contents/' + path, { method: 'PUT', body: JSON.stringify({ message, content: base64Content, branch: BRANCH, ...(sha ? { sha } : {}) }) }, tk);
+    }
+    async function checkToken(tk) {
+      const repo = await gh('', {}, tk);
+      if (!repo.permissions || !repo.permissions.push) throw new Error('이 키에는 저장(쓰기) 권한이 없습니다. 권한을 Contents: Read and write 로 발급해 주세요.');
+    }
+    async function loadAuth() {
+      const res = await fetch(API + '/contents/' + AUTH_PATH + '?ref=' + BRANCH, { headers: { Accept: 'application/vnd.github+json' }, cache: 'no-store' }).catch(() => null);
+      if (res && res.ok) {
+        const j = await res.json();
+        authSha = j.sha;
+        return JSON.parse(decodeURIComponent(escape(atob(j.content.replace(/\n/g, '')))));
+      }
+      // GitHub API 사용량 초과 등일 때는 사이트에 올라간 파일을 읽음
+      const alt = await fetch('auth.json?t=' + Date.now(), { cache: 'no-store' });
+      return alt.json();
+    }
+    async function saveAuth(obj, message, tk) {
+      const content = btoa(unescape(encodeURIComponent(JSON.stringify(obj, null, 2) + '\n')));
+      await putFile(AUTH_PATH, content, message, tk);
+      auth = obj;
+    }
+
+    // ---------- 사진 처리 ----------
+    function loadImage(file) {
+      return new Promise((resolve, reject) => {
+        const url = URL.createObjectURL(file);
+        const img = new Image();
+        img.onload = () => resolve(img);
+        img.onerror = () => reject(new Error('이 사진 형식은 열 수 없습니다. JPG나 PNG로 다시 골라 주세요. (아이폰 HEIC 사진은 「호환성 우선」으로 찍거나 캡처해서 올려 주세요)'));
+        img.src = url;
+      });
+    }
+    async function prepare(file, slot) {
+      const img = await loadImage(file);
+      let sx = 0, sy = 0, sw = img.naturalWidth, sh = img.naturalHeight;
+      if (slot.square) { const s = Math.min(sw, sh); sx = (sw - s) / 2; sy = (sh - s) / 2; sw = sh = s; }
+      const scale = Math.min(1, slot.max / Math.max(sw, sh));
+      const w = Math.round(sw * scale), h = Math.round(sh * scale);
+      const canvas = document.createElement('canvas');
+      canvas.width = w; canvas.height = h;
+      const ctx = canvas.getContext('2d');
+      ctx.fillStyle = '#fff'; ctx.fillRect(0, 0, w, h);
+      ctx.drawImage(img, sx, sy, sw, sh, 0, 0, w, h);
+      URL.revokeObjectURL(img.src);
+      const blob = await new Promise((r) => canvas.toBlob(r, 'image/jpeg', 0.85));
+      const dataUrl = await new Promise((r) => { const fr = new FileReader(); fr.onload = () => r(fr.result); fr.readAsDataURL(blob); });
+      return { dataUrl, base64: dataUrl.split(',')[1], w, h, kb: Math.round(blob.size / 1024) };
+    }
+
+    // ---------- 관리 화면 ----------
+    function renderDash() {
+      const wrap = $('groups');
+      wrap.innerHTML = '';
+      const stamp = Date.now();
+      GROUPS.forEach((g) => {
+        const sec = document.createElement('section');
+        sec.className = 'group';
+        sec.innerHTML = '<h2></h2><p></p><div class="grid"></div>';
+        sec.querySelector('h2').textContent = g.title;
+        sec.querySelector('p').textContent = g.desc;
+        const grid = sec.querySelector('.grid');
+        g.slots.forEach((slot) => grid.appendChild(slotCard(slot, stamp)));
+        wrap.appendChild(sec);
+      });
+    }
+    function slotCard(slot, stamp) {
+      const el = document.createElement('article');
+      el.className = 'slot';
+      el.innerHTML = `
+        <div class="pic"><img alt=""></div>
+        <div class="body">
+          <strong></strong><span class="where"></span><span class="file"></span>
+          <span class="status"></span>
+          <div class="actions">
+            <label class="btn small">사진 바꾸기<input type="file" accept="image/*" hidden></label>
+            <button class="small primary save" hidden>저장</button>
+            <button class="small cancel" hidden>취소</button>
+          </div>
+        </div>`;
+      const img = el.querySelector('img');
+      const status = el.querySelector('.status');
+      const input = el.querySelector('input');
+      const save = el.querySelector('.save');
+      const cancel = el.querySelector('.cancel');
+      const current = SITE + 'images/' + slot.file + '?t=' + stamp;
+      el.querySelector('strong').textContent = slot.name;
+      el.querySelector('.where').textContent = slot.where;
+      el.querySelector('.file').textContent = 'images/' + slot.file;
+      img.src = current;
+      let pending = null;
+      const setStatus = (t, k) => { status.textContent = t; status.className = 'status' + (k ? ' ' + k : ''); };
+      const reset = () => { pending = null; save.hidden = cancel.hidden = true; input.value = ''; el.querySelector('.badge')?.remove(); };
+
+      input.addEventListener('change', async () => {
+        const file = input.files && input.files[0];
+        if (!file) return;
+        setStatus('사진 준비 중…');
+        try {
+          pending = await prepare(file, slot);
+          img.src = pending.dataUrl;
+          if (!el.querySelector('.badge')) el.querySelector('.pic').insertAdjacentHTML('beforeend', '<span class="badge">미리보기</span>');
+          save.hidden = cancel.hidden = false;
+          setStatus(`${pending.w}×${pending.h}px · ${pending.kb}KB — 저장을 눌러야 사이트에 올라갑니다.`);
+        } catch (e) { setStatus(e.message, 'err'); reset(); }
+      });
+      cancel.addEventListener('click', () => { img.src = current; reset(); setStatus(''); });
+      save.addEventListener('click', async () => {
+        if (!pending) return;
+        save.disabled = cancel.disabled = true;
+        setStatus('저장 중…');
+        try {
+          await putFile('images/' + slot.file, pending.base64, 'Admin: 사진 교체 ' + slot.file);
+          const shown = pending.dataUrl;
+          reset();
+          img.src = shown;
+          setStatus('저장 완료! 1~3분(늦으면 10분) 뒤 사이트에 반영됩니다.', 'ok');
+        } catch (e) { setStatus(e.message, 'err'); }
+        save.disabled = cancel.disabled = false;
+      });
+      return el;
+    }
+
+    function enterDash() {
+      show('dash');
+      $('logout').hidden = false;
+      $('p-id').value = store.get('gabby-admin-id') || '';
+      renderDash();
+    }
+
+    // ---------- 이벤트 ----------
+    $('setup-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const msg = $('setup-msg');
+      const id = $('s-id').value.trim(), pw = $('s-pw').value, pw2 = $('s-pw2').value, tk = $('s-token').value.trim();
+      if (!id) return setMsg(msg, '아이디를 입력해 주세요.', 'err');
+      if (!strongPw(pw)) return setMsg(msg, '비밀번호는 10자 이상, 영문과 숫자를 섞어 주세요.', 'err');
+      if (pw !== pw2) return setMsg(msg, '비밀번호 확인이 일치하지 않습니다.', 'err');
+      setMsg(msg, '키 확인 중…');
+      try {
+        await checkToken(tk);
+        setMsg(msg, '저장 중…');
+        await saveAuth(await sealToken(id, pw, tk), 'Admin: 관리자 계정 설정', tk);
+        token = tk;
+        store.set('gabby-admin-token', tk);
+        enterDash();
+      } catch (err) { setMsg(msg, err.message, 'err'); }
+    });
+
+    $('login-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const msg = $('login-msg');
+      setMsg(msg, '확인 중…');
+      try {
+        token = await openToken($('l-id').value.trim(), $('l-pw').value);
+        store.set('gabby-admin-token', token);
+        $('l-pw').value = '';
+        enterDash();
+      } catch (err) {
+        await new Promise((r) => setTimeout(r, 1200));
+        setMsg(msg, '아이디 또는 비밀번호가 틀렸습니다.', 'err');
+      }
+    });
+
+    $('pw-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const msg = $('pw-msg');
+      const newId = $('p-id').value.trim(), cur = $('p-cur').value, pw = $('p-new').value, pw2 = $('p-new2').value;
+      if (!strongPw(pw)) return setMsg(msg, '새 비밀번호는 10자 이상, 영문과 숫자를 섞어 주세요.', 'err');
+      if (pw !== pw2) return setMsg(msg, '새 비밀번호 확인이 일치하지 않습니다.', 'err');
+      setMsg(msg, '확인 중…');
+      try {
+        auth = await loadAuth();
+        // 현재 비밀번호 확인: 아이디가 그대로면 새 아이디 칸으로, 바꾸는 중이면 로그인 아이디를 따로 받지 않으므로 둘 다 시도
+        let ok = null;
+        for (const tryId of [newId, store.get('gabby-admin-id')].filter(Boolean)) {
+          try { ok = await openToken(tryId, cur); break; } catch (_) { /* 다음 후보 */ }
+        }
+        if (!ok) throw new Error('현재 아이디 또는 비밀번호가 틀렸습니다. (아이디를 바꾸려면 먼저 같은 아이디로 비밀번호만 변경한 뒤 다시 시도해 주세요)');
+        setMsg(msg, '저장 중…');
+        await saveAuth(await sealToken(newId, pw, ok), 'Admin: 관리자 비밀번호 변경', ok);
+        store.set('gabby-admin-id', newId);
+        e.target.reset();
+        setMsg(msg, '변경되었습니다. 다음 로그인부터 새 아이디 · 비밀번호를 쓰세요.', 'ok');
+      } catch (err) { setMsg(msg, err.message, 'err'); }
+    });
+
+    $('tk-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const msg = $('tk-msg');
+      const id = store.get('gabby-admin-id');
+      const pw = $('t-pw').value, tk = $('t-token').value.trim();
+      setMsg(msg, '확인 중…');
+      try {
+        auth = await loadAuth();
+        if (!id) throw new Error('로그아웃 후 다시 로그인한 다음 시도해 주세요.');
+        await openToken(id, pw).catch(() => { throw new Error('비밀번호가 틀렸습니다.'); });
+        await checkToken(tk);
+        await saveAuth(await sealToken(id, pw, tk), 'Admin: GitHub 저장 키 교체', tk);
+        token = tk;
+        store.set('gabby-admin-token', tk);
+        e.target.reset();
+        setMsg(msg, '키를 교체했습니다.', 'ok');
+      } catch (err) { setMsg(msg, err.message, 'err'); }
+    });
+
+    // 로그인할 때 아이디를 기억해 두면 비밀번호 변경 · 키 교체에서 씀
+    $('login-form').addEventListener('submit', () => store.set('gabby-admin-id', $('l-id').value.trim()), true);
+    $('setup-form').addEventListener('submit', () => store.set('gabby-admin-id', $('s-id').value.trim()), true);
+
+    $('logout').addEventListener('click', () => {
+      token = null;
+      store.del('gabby-admin-token');
+      store.del('gabby-admin-id');
+      location.reload();
+    });
+
+    // ---------- 시작 ----------
+    (async () => {
+      try {
+        auth = await loadAuth();
+        $('boot').hidden = true;
+        const saved = store.get('gabby-admin-token');
+        if (auth.token && saved) { token = saved; enterDash(); return; }
+        show(auth.token ? 'login' : 'setup');
+        const savedId = store.get('gabby-admin-id');
+        if (savedId) { $('l-id').value = savedId; }
+      } catch (e) {
+        setMsg($('boot'), '설정을 불러오지 못했습니다. 잠시 뒤 새로고침해 주세요.', 'err');
+      }
+    })();
+  })();
+  </script>
+</body>
+</html>
