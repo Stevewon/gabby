@@ -21,4 +21,25 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://www.gabby.co.kr/en/"/>
     <xhtml:link rel="alternate" hreflang="ja" href="https://www.gabby.co.kr/ja/"/>
   </url>
+  <url>
+    <loc>https://www.gabby.co.kr/story/</loc>
+    <lastmod>2026-10-15</lastmod>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.gabby.co.kr/story/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.gabby.co.kr/en/story/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.gabby.co.kr/ja/story/"/>
+  </url>
+  <url>
+    <loc>https://www.gabby.co.kr/en/story/</loc>
+    <lastmod>2026-10-15</lastmod>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.gabby.co.kr/story/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.gabby.co.kr/en/story/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.gabby.co.kr/ja/story/"/>
+  </url>
+  <url>
+    <loc>https://www.gabby.co.kr/ja/story/</loc>
+    <lastmod>2026-10-15</lastmod>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.gabby.co.kr/story/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.gabby.co.kr/en/story/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.gabby.co.kr/ja/story/"/>
+  </url>
 </urlset>
