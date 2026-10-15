@@ -627,3 +627,11 @@ html[lang="ja"] .fact::before { content: "💡 ご存じですか？"; }
   .story-teaser { padding: 56px 60px; }
   .story-teaser p { max-width: 640px; font-size: 16.5px; }
 }
+
+/* Copyright warning (footer) */
+.copyright-warn {
+  max-width: 760px; margin: 18px auto 10px; padding: 14px 16px;
+  border: 1px solid rgba(179, 65, 46, .35); border-radius: 12px; background: rgba(179, 65, 46, .06);
+  font-size: 12px; line-height: 1.7; color: var(--ink-soft); text-align: left;
+}
+.copyright-warn strong { display: block; color: #b3412e; font-size: 12.5px; margin-bottom: 2px; }
