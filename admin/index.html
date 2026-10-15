@@ -223,16 +223,65 @@
         const body = await res.json().catch(() => ({}));
         throw Object.assign(new Error('GitHub 권한 오류: ' + (body.message || res.status) + '. 키의 저장소가 Stevewon/gabby, 권한이 Contents: Read and write 인지 확인해 주세요.'), { status: res.status });
       }
-      if (!res.ok) throw new Error('GitHub 오류 ' + res.status);
+      if (!res.ok) throw Object.assign(new Error('GitHub 오류 ' + res.status + '. 잠시 뒤 다시 저장해 주세요.'), { status: res.status });
       return res.json();
     }
     async function fileSha(path, tk = token) {
       try { return (await gh('/contents/' + path + '?ref=' + BRANCH, {}, tk)).sha; } catch (e) { if (e.status === 404) return null; throw e; }
     }
     async function putFile(path, base64Content, message, tk = token) {
-      const sha = await fileSha(path, tk);
-      return gh('/contents/' + path, { method: 'PUT', body: JSON.stringify({ message, content: base64Content, branch: BRANCH, ...(sha ? { sha } : {}) }) }, tk);
+      // 다른 저장과 겹쳐 버전이 어긋나면(409/422) 최신 버전을 다시 받아 재시도
+      for (let attempt = 0; ; attempt++) {
+        const sha = await fileSha(path, tk);
+        try {
+          return await gh('/contents/' + path, { method: 'PUT', body: JSON.stringify({ message, content: base64Content, branch: BRANCH, ...(sha ? { sha } : {}) }) }, tk);
+        } catch (e) {
+          if ((e.status === 409 || e.status === 422) && attempt < 3) { await new Promise((r) => setTimeout(r, 1500)); continue; }
+          throw e;
+        }
+      }
     }
+
+    // 사진 버전 기록: 사이트의 모든 페이지가 이 번호를 보고 최신 사진을 불러옴
+    const VERSIONS_PATH = 'images/versions.json';
+    async function bumpVersion(file) {
+      const stamp = Date.now();
+      for (let attempt = 0; ; attempt++) {
+        let sha = null, versions = {};
+        try {
+          const j = await gh('/contents/' + VERSIONS_PATH + '?ref=' + BRANCH);
+          sha = j.sha;
+          versions = JSON.parse(atob(j.content.replace(/\n/g, '')) || '{}');
+        } catch (e) { if (e.status !== 404) throw e; }
+        versions[file] = stamp;
+        const content = btoa(JSON.stringify(versions, null, 2) + '\n');
+        try {
+          await gh('/contents/' + VERSIONS_PATH, { method: 'PUT', body: JSON.stringify({ message: 'Admin: 사진 버전 갱신 ' + file, content, branch: BRANCH, ...(sha ? { sha } : {}) }) });
+          return stamp;
+        } catch (e) {
+          if ((e.status === 409 || e.status === 422) && attempt < 3) { await new Promise((r) => setTimeout(r, 1500)); continue; }
+          throw e;
+        }
+      }
+    }
+    // 실제 사이트에 새 사진이 올라갈 때까지 확인 (최대 10분)
+    async function waitLive(file, stamp, onTick) {
+      const until = Date.now() + 10 * 60 * 1000;
+      while (Date.now() < until) {
+        try {
+          const v = await (await fetch(SITE + VERSIONS_PATH + '?t=' + Date.now(), { cache: 'no-store' })).json();
+          if (v[file] >= stamp) {
+            const img = await fetch(SITE + 'images/' + file + '?v=' + v[file], { cache: 'no-store' });
+            if (img.ok) return true;
+          }
+        } catch (e) { /* 아직 반영 전 */ }
+        onTick(Math.round((until - Date.now()) / 1000));
+        await new Promise((r) => setTimeout(r, 10000));
+      }
+      return false;
+    }
+    // 여러 사진을 연달아 저장해도 순서대로 처리
+    let saveQueue = Promise.resolve();
     async function checkToken(tk) {
       const repo = await gh('', {}, tk);
       if (!repo.permissions || !repo.permissions.push) throw new Error('이 키에는 저장(쓰기) 권한이 없습니다. 권한을 Contents: Read and write 로 발급해 주세요.');
@@ -341,15 +390,24 @@
       save.addEventListener('click', async () => {
         if (!pending) return;
         save.disabled = cancel.disabled = true;
-        setStatus('저장 중…');
+        setStatus('저장 대기 중…');
+        const job = pending;
+        const run = async () => {
+          setStatus('저장 중…');
+          await putFile('images/' + slot.file, job.base64, 'Admin: 사진 교체 ' + slot.file);
+          return bumpVersion(slot.file);
+        };
+        const task = saveQueue.then(run, run);
+        saveQueue = task.catch(() => {});
         try {
-          await putFile('images/' + slot.file, pending.base64, 'Admin: 사진 교체 ' + slot.file);
-          const shown = pending.dataUrl;
+          const stamp = await task;
           reset();
-          img.src = shown;
-          setStatus('저장 완료! 1~3분(늦으면 10분) 뒤 사이트에 반영됩니다.', 'ok');
-        } catch (e) { setStatus(e.message, 'err'); }
-        save.disabled = cancel.disabled = false;
+          img.src = job.dataUrl;
+          setStatus('저장 완료 · 사이트 반영 확인 중… (보통 1~3분, 이 화면을 닫아도 반영됩니다)');
+          save.disabled = cancel.disabled = false;
+          const live = await waitLive(slot.file, stamp, () => setStatus('저장 완료 · 사이트 반영 확인 중… (보통 1~3분, 이 화면을 닫아도 반영됩니다)'));
+          setStatus(live ? '✅ 사이트 반영 완료! 모든 페이지에 새 사진이 나옵니다.' : '저장은 되었지만 사이트 반영이 늦어지고 있습니다. 10분 뒤 사이트를 확인해 주세요.', live ? 'ok' : 'err');
+        } catch (e) { setStatus(e.message, 'err'); save.disabled = cancel.disabled = false; }
       });
       return el;
     }

@@ -1,3 +1,23 @@
+// 관리자에서 바꾼 사진이 캐시와 상관없이 바로 보이도록, 사진마다 최신 버전 번호를 붙임
+(() => {
+  const me = document.currentScript;
+  const root = new URL('.', me ? me.src : location.href);
+  fetch(new URL('images/versions.json?t=' + Date.now(), root), { cache: 'no-store' })
+    .then((r) => (r.ok ? r.json() : {}))
+    .then((v) => {
+      const fresh = (f) => (v[f] ? new URL('images/' + f + '?v=' + v[f], root).href : null);
+      document.querySelectorAll('img[src*="images/"]').forEach((img) => {
+        const u = fresh(img.getAttribute('src').split('images/').pop().split('?')[0]);
+        if (u) img.src = u;
+      });
+      [['--img-hero', 'hero.jpg'], ['--img-story', 'story-hero.jpg']].forEach(([k, f]) => {
+        const u = fresh(f);
+        if (u) document.documentElement.style.setProperty(k, 'url("' + u + '")');
+      });
+    })
+    .catch(() => {});
+})();
+
 (() => {
   const header = document.querySelector('.header');
   const menuBtn = document.querySelector('.menu-btn');
