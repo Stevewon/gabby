@@ -1,7 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://www.gabby.co.kr/</loc>
-    <lastmod>2026-10-14</lastmod>
+    <lastmod>2026-10-15</lastmod>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.gabby.co.kr/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.gabby.co.kr/en/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.gabby.co.kr/ja/"/>
+  </url>
+  <url>
+    <loc>https://www.gabby.co.kr/en/</loc>
+    <lastmod>2026-10-15</lastmod>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.gabby.co.kr/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.gabby.co.kr/en/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.gabby.co.kr/ja/"/>
+  </url>
+  <url>
+    <loc>https://www.gabby.co.kr/ja/</loc>
+    <lastmod>2026-10-15</lastmod>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.gabby.co.kr/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.gabby.co.kr/en/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.gabby.co.kr/ja/"/>
   </url>
 </urlset>

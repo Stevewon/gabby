@@ -9,7 +9,8 @@
   const setMenu = (open) => {
     nav.classList.toggle('open', open);
     menuBtn.setAttribute('aria-expanded', String(open));
-    menuBtn.setAttribute('aria-label', open ? '메뉴 닫기' : '메뉴 열기');
+    const labels = { en: ['Close menu', 'Open menu'], ja: ['メニューを閉じる', 'メニューを開く'] }[document.documentElement.lang] || ['메뉴 닫기', '메뉴 열기'];
+    menuBtn.setAttribute('aria-label', open ? labels[0] : labels[1]);
     document.body.style.overflow = open ? 'hidden' : '';
   };
   menuBtn.addEventListener('click', () => setMenu(!nav.classList.contains('open')));

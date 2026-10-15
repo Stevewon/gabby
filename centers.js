@@ -28,29 +28,102 @@ window.GYRO_CENTERS = [
   { name: '스튜디오 디파인', area: null, address: null, lessons: null, gyrokinesis: true, special: [], training: ['프리트레이닝 · 파운데이션 · 어프렌티스 · 최종 인증'], website: 'http://www.studio-define.com/', instagram: null },
 ];
 
+// 영어 · 일본어 페이지용 번역: [영문 이름, 영문 지역, 일본어 이름, 일본어 지역]
+const CENTER_I18N = {
+  '서울자이로토닉협회': ['GYROTONIC® Seoul Association', 'Seocho-gu, Seoul', 'ソウル・ジャイロトニック協会', 'ソウル 瑞草区'],
+  '자이로토닉 인스파인 부산': ['GYROTONIC® InSpine Busan', 'Dongnae-gu, Busan', 'ジャイロトニック インスパイン釜山', '釜山 東莱区'],
+  '자이로토닉 채움': ['GYROTONIC® Chaeum', 'Dunsan-dong, Seo-gu, Daejeon', 'ジャイロトニック チェウム', '大田 西区 屯山洞'],
+  '자이로토닉 재미': ['GYROTONIC® Jaemi', 'Yangjae-dong, Seocho-gu, Seoul', 'ジャイロトニック ジェミ', 'ソウル 瑞草区 良才洞'],
+  '아치앤컬': ['Arch n Curl', 'Gangnam-gu, Seoul', 'アーチ・アンド・カール', 'ソウル 江南区'],
+  '자이로토닉 코드': ['GYROTONIC® Chord', 'Sinsa · Cheongdam, Gangnam-gu, Seoul', 'ジャイロトニック コード', 'ソウル 江南区 新沙・清潭'],
+  '자이로토닉 서래': ['GYROTONIC® Seorae', 'Seorae Village, Seocho-gu, Seoul', 'ジャイロトニック ソレ', 'ソウル 瑞草区 西来村'],
+  '자이로토닉 애니핏': ['GYROTONIC® Anyfit', 'Mapo-gu, Seoul', 'ジャイロトニック エニーフィット', 'ソウル 麻浦区'],
+  '자이로토닉 마브 한남': ['GYROTONIC® Mauve Hannam', 'Hannam-dong, Yongsan-gu, Seoul', 'ジャイロトニック モーブ漢南', 'ソウル 龍山区 漢南洞'],
+  '자이로토닉 담': ['GYROTONIC® Dam', 'Jeju City, Jeju', 'ジャイロトニック ダム', '済州 済州市'],
+  '자이로토닉 트라이브': ['GYROTONIC® Tribe', 'Hyehwa, Seongbuk-gu, Seoul', 'ジャイロトニック トライブ', 'ソウル 城北区 恵化'],
+  '자이로토닉 에코': ['GYROTONIC® Echo', 'Seongsu-dong, Seongdong-gu, Seoul', 'ジャイロトニック エコー', 'ソウル 城東区 聖水洞'],
+  '자이로토닉 에코 천안': ['GYROTONIC® Echo Cheonan', 'Buldang-dong, Seobuk-gu, Cheonan', 'ジャイロトニック エコー天安', '天安市 西北区 プルダン洞'],
+  '아트필라테스 청담 본점': ['Art Pilates Cheongdam', 'Cheongdam-dong, Gangnam-gu, Seoul', 'アートピラティス清潭 本店', 'ソウル 江南区 清潭洞'],
+  '뉴트럴 스튜디오': ['Neutral Studio', 'Dongtan, Hwaseong, Gyeonggi', 'ニュートラルスタジオ', '京畿道 華城市 東灘'],
+  '자이로토닉 아이디얼바디': ['GYROTONIC® Ideal Body', 'Gwonseon-gu, Suwon, Gyeonggi', 'ジャイロトニック アイディアルボディ', '京畿道 水原市 勧善区'],
+  '자이로토닉 청담': ['GYROTONIC® Cheongdam', 'Cheongdam-dong, Gangnam-gu, Seoul', 'ジャイロトニック清潭', 'ソウル 江南区 清潭洞'],
+  '아든 필라테스': ['Arden Pilates', 'Nam-gu, Busan', 'アーデン・ピラティス', '釜山 南区'],
+  '후스파인': ['Hoospine', 'Jeonju, Jeonbuk', 'フースパイン', '全北 全州'],
+  '자이로토닉 플리에': ['GYROTONIC® Plié', 'Gwangjin-gu, Seoul', 'ジャイロトニック プリエ', 'ソウル 広津区'],
+  '자이로토닉 누크': ['GYROTONIC® Nook', 'Jeju', 'ジャイロトニック ヌーク', '済州'],
+  '제이앤에스 바디플로우': ['J&S Body Flow', 'Jongno-gu, Seoul', 'J&S ボディフロー', 'ソウル 鍾路区'],
+  '더 스파이럴': ['The Spiral', 'Bundang, Seongnam, Gyeonggi', 'ザ・スパイラル', '京畿道 城南市 盆唐'],
+  '스튜디오 디파인': ['Studio Define', null, 'スタジオ・ディファイン', null],
+};
+const NOTE_I18N = {
+  '2005년 국내 최초 본사 승인 교육센터': ['Korea’s first HQ-approved education center (2005)', '2005年、韓国初の本部公認教育センター'],
+  '공식 등록 주소 기준 · 청담 · 삼성 · 송도 지점 운영': ['Official listed address · branches in Cheongdam, Samseong and Songdo', '公式登録住所 · 清潭・三成・松島にも支店'],
+};
+// 과정 · 기구 용어 (긴 것부터 치환): [한국어, 영어, 일본어]
+const CENTER_TERMS = [
+  ['스페셜 머신 과정', 'Special Equipment courses', 'スペシャルマシンコース'],
+  ['유방암 적용 과정', 'Breast cancer application course', '乳がん適用コース'],
+  ['댄서 적용 과정', 'Course for dancers', 'ダンサー向けコース'],
+  ['점핑 스트레칭 보드', 'Jumping-Stretching Board', 'ジャンピング・ストレッチングボード'],
+  ['레그 익스텐션', 'Leg Extension', 'レッグエクステンション'],
+  ['자이로키네시스', 'GYROKINESIS®', 'ジャイロキネシス®'],
+  ['자이로토너', 'GYROTONER®', 'ジャイロトナー®'],
+  ['자이로토닉', 'GYROTONIC®', 'ジャイロトニック®'],
+  ['프리트레이닝', 'Pre-Training', 'プレトレーニング'],
+  ['파운데이션', 'Foundation', 'ファンデーション'],
+  ['어프렌티스', 'Apprentice', 'アプレンティス'],
+  ['최종 인증', 'Final Certification', '最終認定'],
+  ['업데이트', 'Update', 'アップデート'],
+  ['에센셜', 'Essentials', 'エッセンシャル'],
+  ['아치웨이', 'Archway', 'アーチウェイ'],
+  ['레벨', 'Level ', 'レベル'],
+  ['리뷰', 'Review', 'レビュー'],
+  ['프리', 'Pre-Training', 'プレトレーニング'],
+  ['과정', 'courses', 'コース'],
+];
+
 (() => {
   const list = document.getElementById('center-list');
   if (!list) return;
+  const lang = document.documentElement.lang;
+  const li = lang === 'en' ? 1 : lang === 'ja' ? 2 : 0;
+  const L = {
+    lessons: ['개인레슨', 'Private lessons', '個人レッスン'],
+    gk: ['자이로키네시스', 'GYROKINESIS®', 'ジャイロキネシス®'],
+    special: ['스페셜 머신', 'Special equipment', 'スペシャルマシン'],
+    training: ['강사 교육', 'Teacher training', '講師養成'],
+    pending: ['상세 주소 확인 중', 'address being confirmed', '詳細住所確認中'],
+    noaddr: ['주소 확인 중', 'Address being confirmed', '住所確認中'],
+    map: ['지도', 'Map', '地図'],
+    web: ['홈페이지', 'Website', 'ウェブサイト'],
+    insta: ['인스타그램', 'Instagram', 'Instagram'],
+  };
+  const t = (k) => L[k][li];
+  const term = (s) => (li ? CENTER_TERMS.reduce((acc, row) => acc.split(row[0]).join(row[li]), s) : s);
   const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
   const tag = (label, on) => `<span class="${on ? 'on' : ''}">${label}</span>`;
   list.innerHTML = window.GYRO_CENTERS.map((c) => {
+    const tr = li ? CENTER_I18N[c.name] : null;
+    const name = tr ? tr[(li - 1) * 2] : c.name;
+    const area = tr ? tr[(li - 1) * 2 + 1] : c.area;
+    const note = c.note && li && NOTE_I18N[c.note] ? NOTE_I18N[c.note][li - 1] : c.note;
     const mapUrl = `https://map.naver.com/p/search/${encodeURIComponent(c.address || c.name)}`;
     const detail = [
-      c.special.length ? `<strong>스페셜 머신</strong> ${c.special.map(esc).join(', ')}` : '',
-      c.training.length ? `<strong>강사 교육</strong> ${c.training.map(esc).join(' / ')}` : '',
+      c.special.length ? `<strong>${t('special')}</strong> ${c.special.map((x) => esc(term(x))).join(', ')}` : '',
+      c.training.length ? `<strong>${t('training')}</strong> ${c.training.map((x) => esc(term(x))).join(' / ')}` : '',
     ].filter(Boolean).join('<br>');
     return `<article class="center">
-      <div class="center-head"><h3>${esc(c.name)}</h3><span class="center-area">${esc(c.area || '')}</span></div>
+      <div class="center-head"><h3>${esc(name)}</h3><span class="center-area">${esc(area || '')}</span></div>
       <div class="center-tags">
-        ${tag('개인레슨', c.lessons)}${tag('자이로키네시스', c.gyrokinesis)}${tag('스페셜 머신', c.special.length)}${tag('강사 교육', c.training.length)}
+        ${tag(t('lessons'), c.lessons)}${tag(t('gk'), c.gyrokinesis)}${tag(t('special'), c.special.length)}${tag(t('training'), c.training.length)}
       </div>
       ${detail ? `<p class="center-detail">${detail}</p>` : ''}
-      ${c.note ? `<p class="center-detail">${esc(c.note)}</p>` : ''}
-      <p class="center-detail">📍 ${esc(c.address || (c.area ? c.area + ' (상세 주소 확인 중)' : '주소 확인 중'))}</p>
+      ${note ? `<p class="center-detail">${esc(note)}</p>` : ''}
+      <p class="center-detail">📍 ${esc(c.address || (area ? area + ' (' + t('pending') + ')' : t('noaddr')))}</p>
       <div class="center-links">
-        <a href="${mapUrl}" target="_blank" rel="noopener">지도</a>
-        ${c.website ? `<a href="${esc(c.website)}" target="_blank" rel="noopener">홈페이지</a>` : ''}
-        ${c.instagram ? `<a href="https://www.instagram.com/${esc(c.instagram)}/" target="_blank" rel="noopener">인스타그램</a>` : ''}
+        <a href="${mapUrl}" target="_blank" rel="noopener">${t('map')}</a>
+        ${c.website ? `<a href="${esc(c.website)}" target="_blank" rel="noopener">${t('web')}</a>` : ''}
+        ${c.instagram ? `<a href="https://www.instagram.com/${esc(c.instagram)}/" target="_blank" rel="noopener">${t('insta')}</a>` : ''}
       </div>
     </article>`;
   }).join('');

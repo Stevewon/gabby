@@ -19,11 +19,37 @@ window.GYRO_REFS = [
   { name: 'GYROTONIC® Melbourne', kind: '교육센터', place: '호주 멜버른', url: 'https://gyrotonicmelbourne.com.au/', desc: '호주의 대표 지도자 교육 스튜디오' },
 ];
 
+// 영어 · 일본어 페이지용 번역 (GYRO_REFS 순서와 같음): [영어 이름, 장소, 설명], [일본어 이름, 장소, 설명]
+const REF_I18N = [
+  [['GYROTONIC® International', 'USA · International HQ', 'Official headquarters of GYROTONIC® and GYROKINESIS®'], ['GYROTONIC® International', 'アメリカ · 国際本部', 'ジャイロトニック®・ジャイロキネシス®公式本部サイト']],
+  [['Founder Juliu Horvath', 'Official', 'The founder’s life and how the method was born'], ['創始者 ジュリオ・ホーヴァス', '公式', '創始者の生涯とメソッド誕生の物語']],
+  [['About the GYROKINESIS® Method', 'Official', 'Official description of equipment-free GYROKINESIS®'], ['ジャイロキネシス® メソッド紹介', '公式', 'マシンを使わないジャイロキネシス®の公式説明']],
+  [['Official Course Finder', 'Worldwide', 'Search official teacher training by country and course'], ['公式コースファインダー', '世界', '国・コース別に公式指導者養成の日程を検索']],
+  [['Official Studio Finder', 'Worldwide', 'Find certified GYROTONIC® studios around the world'], ['公式スタジオ検索', '世界', '世界の認定ジャイロトニック®スタジオを検索']],
+  [['Official YouTube', 'Official', 'HQ video channel with method demonstrations'], ['公式 YouTube', '公式', '本部公式の動画チャンネル、メソッドのデモ映像']],
+  [['Official Instagram @gyrotonic', 'USA · Social', 'HQ Instagram with the latest news'], ['公式 Instagram @gyrotonic', 'アメリカ · SNS', '本部公式インスタグラム、最新情報']],
+  [['GYROTONIC® Frankfurt Center', 'Frankfurt, Germany', 'The center with the most training courses in Germany'], ['GYROTONIC® Frankfurt Center', 'ドイツ フランクフルト', 'ドイツで最も多くの養成コースを持つセンター']],
+  [['Studio Anke Hauerstein', 'Berlin, Germany', 'Teacher training studio in Berlin'], ['Studio Anke Hauerstein', 'ドイツ ベルリン', 'ベルリンの指導者養成スタジオ']],
+  [['GYROTONIC® Soho – Movement Beyond', 'New York, USA', 'Teacher training center in SoHo, New York'], ['GYROTONIC® Soho – Movement Beyond', 'アメリカ ニューヨーク', 'ニューヨーク・ソーホーの指導者養成センター']],
+  [['GYROTONIC® Coral Gables', 'Miami, USA', 'A leading training studio in the Miami area'], ['GYROTONIC® Coral Gables', 'アメリカ マイアミ', 'マイアミ地域を代表する養成スタジオ']],
+  [['GYROTONIC® Barcelona Gracia', 'Barcelona, Spain', 'Teacher training center in Barcelona'], ['GYROTONIC® Barcelona Gracia', 'スペイン バルセロナ', 'バルセロナの指導者養成センター']],
+  [['GYROTONIC® Roma', 'Rome, Italy', 'Teacher training center in Rome'], ['GYROTONIC® Roma', 'イタリア ローマ', 'ローマの指導者養成センター']],
+  [['White Cloud Tokyo', 'Tokyo, Japan', 'A leading teacher training studio in Tokyo'], ['White Cloud Tokyo', '日本 東京', '東京を代表する指導者養成スタジオ']],
+  [['White Cloud Kyoto', 'Kyoto, Japan', 'Teacher training studio in Kyoto'], ['White Cloud Kyoto', '日本 京都', '京都の指導者養成スタジオ']],
+  [['GYROTONIC® Melbourne', 'Melbourne, Australia', 'A leading teacher training studio in Australia'], ['GYROTONIC® Melbourne', 'オーストラリア メルボルン', 'オーストラリアを代表する指導者養成スタジオ']],
+];
+const REF_KINDS = { '공식': ['Official', '公式'], '자료': ['Resource', '資料'], '교육센터': ['Training center', '教育センター'] };
+
 (() => {
   const list = document.getElementById('ref-list');
   if (!list) return;
+  const lang = document.documentElement.lang;
+  const li = lang === 'en' ? 0 : lang === 'ja' ? 1 : -1;
   const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
-  list.innerHTML = window.GYRO_REFS.map((r) => `
+  list.innerHTML = window.GYRO_REFS.map((ko, i) => {
+    const tr = li >= 0 && REF_I18N[i] ? REF_I18N[i][li] : null;
+    const r = tr ? { ...ko, name: tr[0], place: tr[1], desc: tr[2], kind: REF_KINDS[ko.kind][li] } : ko;
+    return `
     <a class="ref" href="${esc(r.url)}" target="_blank" rel="noopener">
       <div class="ref-body">
         <p class="ref-meta">${esc(r.kind)} · ${esc(r.place)}</p>
@@ -31,5 +57,6 @@ window.GYRO_REFS = [
         <p>${esc(r.desc)}</p>
       </div>
       <span class="arrow" aria-hidden="true">↗</span>
-    </a>`).join('');
+    </a>`;
+  }).join('');
 })();
