@@ -42,4 +42,25 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://www.gabby.co.kr/en/story/"/>
     <xhtml:link rel="alternate" hreflang="ja" href="https://www.gabby.co.kr/ja/story/"/>
   </url>
+  <url>
+    <loc>https://www.gabby.co.kr/equipment/</loc>
+    <lastmod>2026-10-15</lastmod>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.gabby.co.kr/equipment/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.gabby.co.kr/en/equipment/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.gabby.co.kr/ja/equipment/"/>
+  </url>
+  <url>
+    <loc>https://www.gabby.co.kr/en/equipment/</loc>
+    <lastmod>2026-10-15</lastmod>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.gabby.co.kr/equipment/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.gabby.co.kr/en/equipment/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.gabby.co.kr/ja/equipment/"/>
+  </url>
+  <url>
+    <loc>https://www.gabby.co.kr/ja/equipment/</loc>
+    <lastmod>2026-10-15</lastmod>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.gabby.co.kr/equipment/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.gabby.co.kr/en/equipment/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.gabby.co.kr/ja/equipment/"/>
+  </url>
 </urlset>

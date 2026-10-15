@@ -635,3 +635,35 @@ html[lang="ja"] .fact::before { content: "💡 ご存じですか？"; }
   font-size: 12px; line-height: 1.7; color: var(--ink-soft); text-align: left;
 }
 .copyright-warn strong { display: block; color: #b3412e; font-size: 12.5px; margin-bottom: 2px; }
+
+/* =========================================================
+   EQUIPMENT PRINCIPLES PAGE (기구 원리)
+   ========================================================= */
+.equip-hero {
+  background:
+    linear-gradient(180deg, rgba(28, 25, 21, .35) 0%, rgba(28, 25, 21, .85) 100%),
+    var(--img-equip, url("images/equip-pilates.jpg")) center / cover no-repeat;
+}
+.diagram { margin-top: 24px; padding: 18px; border-radius: 16px; background: var(--surface); border: 1px solid var(--line); }
+.diagram svg { width: 100%; height: auto; display: block; color: var(--ink); }
+.diagram figcaption { margin-top: 10px; font-size: 13px; color: var(--ink-soft); line-height: 1.6; }
+.diagram-row { display: grid; gap: 14px; grid-template-columns: 1fr; }
+@media (min-width: 760px) { .diagram-row { grid-template-columns: 1fr 1fr; } }
+.machine-photo { margin-top: 22px; width: 100%; aspect-ratio: 16 / 10; object-fit: cover; border-radius: 16px; background: #fff; }
+.parts { list-style: none; margin-top: 18px; display: grid; gap: 8px; }
+.parts li { padding: 12px 14px; border-radius: 12px; background: var(--bg-alt); font-size: 14.5px; line-height: 1.65; }
+.parts li strong { color: var(--accent-dark); margin-right: 6px; }
+@media (min-width: 760px) { .parts { grid-template-columns: 1fr 1fr; } }
+.spec { margin-top: 18px; width: 100%; border-collapse: collapse; font-size: 14px; }
+.spec th, .spec td { text-align: left; padding: 9px 10px; border-bottom: 1px solid var(--line); vertical-align: top; }
+.spec th { width: 34%; color: var(--ink-soft); font-weight: 500; }
+.dot { display: inline-block; width: 11px; height: 11px; border-radius: 50%; margin-right: 6px; vertical-align: -1px; border: 1px solid rgba(0, 0, 0, .15); }
+.manual-list { list-style: none; margin-top: 16px; display: grid; gap: 10px; }
+.manual-list a {
+  display: flex; align-items: center; gap: 12px; padding: 14px 16px; border-radius: 14px;
+  background: var(--surface); border: 1px solid var(--line); font-size: 14.5px;
+}
+.manual-list a small { display: block; font-size: 12.5px; color: var(--ink-soft); }
+.manual-list .kind { flex: 0 0 auto; font-size: 11px; font-weight: 700; padding: 3px 8px; border-radius: 6px; background: var(--accent-dark); color: #fff; }
+.manual-list .kind.web { background: var(--clay); }
+.machine-nav { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 26px; }

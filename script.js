@@ -10,7 +10,7 @@
         const u = fresh(img.getAttribute('src').split('images/').pop().split('?')[0]);
         if (u) img.src = u;
       });
-      [['--img-hero', 'hero.jpg'], ['--img-story', 'story-hero.jpg']].forEach(([k, f]) => {
+      [['--img-hero', 'hero.jpg'], ['--img-story', 'story-hero.jpg'], ['--img-equip', 'equip-pilates.jpg']].forEach(([k, f]) => {
         const u = fresh(f);
         if (u) document.documentElement.style.setProperty(k, 'url("' + u + '")');
       });
