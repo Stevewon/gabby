@@ -1,0 +1,644 @@
+{
+  "updated": 1792137605666,
+  "centers": [
+    {
+      "name": "서울자이로토닉협회",
+      "area": "서울 서초구",
+      "address": "서울 서초구 남부순환로325길 9, DS홀 4층 401호",
+      "lessons": true,
+      "gyrokinesis": true,
+      "special": [
+        "아치웨이",
+        "점핑 스트레칭 보드",
+        "레그 익스텐션",
+        "자이로토너"
+      ],
+      "training": [
+        "자이로토닉 프리트레이닝 · 파운데이션",
+        "자이로키네시스 최종 인증",
+        "레벨1·2 · 업데이트 · 스페셜 머신 과정"
+      ],
+      "website": "http://www.gyrotonicseoul.co.kr",
+      "instagram": null,
+      "note": "2005년 국내 최초 본사 승인 교육센터",
+      "en": {
+        "name": "GYROTONIC® Seoul Association",
+        "area": "Seocho-gu, Seoul",
+        "note": "Korea’s first HQ-approved education center (2005)"
+      },
+      "ja": {
+        "name": "ソウル・ジャイロトニック協会",
+        "area": "ソウル 瑞草区",
+        "note": "2005年、韓国初の本部公認教育センター"
+      }
+    },
+    {
+      "name": "자이로토닉 인스파인 부산",
+      "area": "부산 동래구",
+      "address": "부산 동래구 충렬대로 103, 8층",
+      "lessons": true,
+      "gyrokinesis": null,
+      "special": [
+        "아치웨이",
+        "점핑 스트레칭 보드",
+        "레그 익스텐션",
+        "자이로토너"
+      ],
+      "training": [
+        "자이로토닉 파운데이션 · 레벨2",
+        "자이로키네시스 파운데이션 · 어프렌티스 · 최종 인증",
+        "점핑 스트레칭 보드 · 레그 익스텐션 · 자이로토너 과정"
+      ],
+      "website": "http://www.gyrotonicinspine.com",
+      "instagram": null,
+      "en": {
+        "name": "GYROTONIC® InSpine Busan",
+        "area": "Dongnae-gu, Busan",
+        "note": null
+      },
+      "ja": {
+        "name": "ジャイロトニック インスパイン釜山",
+        "area": "釜山 東莱区",
+        "note": null
+      }
+    },
+    {
+      "name": "자이로토닉 채움",
+      "area": "대전 서구 둔산동",
+      "address": "대전 서구 둔산로123번길 21, 3층",
+      "lessons": true,
+      "gyrokinesis": null,
+      "special": [
+        "점핑 스트레칭 보드",
+        "레그 익스텐션",
+        "자이로토너"
+      ],
+      "training": [
+        "자이로토닉 프리 · 파운데이션 · 어프렌티스 · 레벨2",
+        "자이로키네시스 파운데이션",
+        "점핑 스트레칭 보드 · 자이로토너 과정"
+      ],
+      "website": "https://www.gyrotonicchaeum.com/",
+      "instagram": "gyrotonic_chaeum",
+      "en": {
+        "name": "GYROTONIC® Chaeum",
+        "area": "Dunsan-dong, Seo-gu, Daejeon",
+        "note": null
+      },
+      "ja": {
+        "name": "ジャイロトニック チェウム",
+        "area": "大田 西区 屯山洞",
+        "note": null
+      }
+    },
+    {
+      "name": "자이로토닉 재미",
+      "area": "서울 서초구 양재동",
+      "address": "서울 서초구 강남대로10길 37, 영덕빌딩 3층",
+      "lessons": true,
+      "gyrokinesis": true,
+      "special": [
+        "아치웨이",
+        "점핑 스트레칭 보드",
+        "레그 익스텐션",
+        "자이로토너"
+      ],
+      "training": [
+        "자이로토닉 프리 · 어프렌티스 · 레벨2",
+        "자이로키네시스 파운데이션",
+        "자이로토너 과정",
+        "유방암 적용 과정"
+      ],
+      "website": "https://www.gyrotonicjaemi.com",
+      "instagram": "gyrotonic_jaemi",
+      "en": {
+        "name": "GYROTONIC® Jaemi",
+        "area": "Yangjae-dong, Seocho-gu, Seoul",
+        "note": null
+      },
+      "ja": {
+        "name": "ジャイロトニック ジェミ",
+        "area": "ソウル 瑞草区 良才洞",
+        "note": null
+      }
+    },
+    {
+      "name": "아치앤컬",
+      "area": "서울 강남구",
+      "address": "서울 강남구 봉은사로 302, SK리더스뷰 205·206호",
+      "lessons": true,
+      "gyrokinesis": true,
+      "special": [
+        "아치웨이",
+        "점핑 스트레칭 보드",
+        "레그 익스텐션",
+        "자이로토너"
+      ],
+      "training": [
+        "자이로토닉 파운데이션 · 최종 인증",
+        "아치웨이 레벨2",
+        "레그 익스텐션 과정",
+        "자이로키네시스 레벨2"
+      ],
+      "website": "http://www.archncurledu.com/",
+      "instagram": "archncurl_chungdam",
+      "en": {
+        "name": "Arch n Curl",
+        "area": "Gangnam-gu, Seoul",
+        "note": null
+      },
+      "ja": {
+        "name": "アーチ・アンド・カール",
+        "area": "ソウル 江南区",
+        "note": null
+      }
+    },
+    {
+      "name": "자이로토닉 코드",
+      "area": "서울 강남구 신사 · 청담",
+      "address": "서울 강남구 도산대로55길 25, 3층",
+      "lessons": true,
+      "gyrokinesis": null,
+      "special": [
+        "아치웨이",
+        "점핑 스트레칭 보드",
+        "레그 익스텐션",
+        "자이로토너"
+      ],
+      "training": [
+        "자이로키네시스 파운데이션 · 어프렌티스 · 레벨2",
+        "아치웨이 레벨2",
+        "댄서 적용 과정"
+      ],
+      "website": null,
+      "instagram": "gyrotonicchord",
+      "en": {
+        "name": "GYROTONIC® Chord",
+        "area": "Sinsa · Cheongdam, Gangnam-gu, Seoul",
+        "note": null
+      },
+      "ja": {
+        "name": "ジャイロトニック コード",
+        "area": "ソウル 江南区 新沙・清潭",
+        "note": null
+      }
+    },
+    {
+      "name": "자이로토닉 서래",
+      "area": "서울 서초구 서래마을",
+      "address": "서울 서초구 사평대로26길 40, 3층",
+      "lessons": true,
+      "gyrokinesis": true,
+      "special": [
+        "아치웨이",
+        "점핑 스트레칭 보드",
+        "레그 익스텐션",
+        "자이로토너"
+      ],
+      "training": [
+        "자이로토닉 프리트레이닝",
+        "자이로키네시스 파운데이션"
+      ],
+      "website": "http://www.gyrotonicseorae.com/",
+      "instagram": "gyrotonic_seorae",
+      "en": {
+        "name": "GYROTONIC® Seorae",
+        "area": "Seorae Village, Seocho-gu, Seoul",
+        "note": null
+      },
+      "ja": {
+        "name": "ジャイロトニック ソレ",
+        "area": "ソウル 瑞草区 西来村",
+        "note": null
+      }
+    },
+    {
+      "name": "자이로토닉 애니핏",
+      "area": "서울 마포구",
+      "address": "서울 마포구 동막로 231, 우원빌딩 6층",
+      "lessons": true,
+      "gyrokinesis": null,
+      "special": [
+        "아치웨이",
+        "점핑 스트레칭 보드",
+        "레그 익스텐션",
+        "자이로토너"
+      ],
+      "training": [
+        "자이로토닉 파운데이션",
+        "자이로키네시스 파운데이션 · 에센셜"
+      ],
+      "website": null,
+      "instagram": "anyfitgyrotonic",
+      "en": {
+        "name": "GYROTONIC® Anyfit",
+        "area": "Mapo-gu, Seoul",
+        "note": null
+      },
+      "ja": {
+        "name": "ジャイロトニック エニーフィット",
+        "area": "ソウル 麻浦区",
+        "note": null
+      }
+    },
+    {
+      "name": "자이로토닉 마브 한남",
+      "area": "서울 용산구 한남동",
+      "address": "서울 용산구 독서당로 94, 3층",
+      "lessons": true,
+      "gyrokinesis": null,
+      "special": [
+        "아치웨이",
+        "점핑 스트레칭 보드",
+        "레그 익스텐션",
+        "자이로토너"
+      ],
+      "training": [
+        "자이로토닉 파운데이션 · 어프렌티스",
+        "자이로키네시스 파운데이션",
+        "점핑 스트레칭 보드 · 자이로토너 과정"
+      ],
+      "website": null,
+      "instagram": "mauve_hannam",
+      "en": {
+        "name": "GYROTONIC® Mauve Hannam",
+        "area": "Hannam-dong, Yongsan-gu, Seoul",
+        "note": null
+      },
+      "ja": {
+        "name": "ジャイロトニック モーブ漢南",
+        "area": "ソウル 龍山区 漢南洞",
+        "note": null
+      }
+    },
+    {
+      "name": "자이로토닉 담",
+      "area": "제주 제주시",
+      "address": "제주 제주시 원노형남2길 45-1, 2층",
+      "lessons": true,
+      "gyrokinesis": null,
+      "special": [
+        "아치웨이",
+        "점핑 스트레칭 보드",
+        "레그 익스텐션"
+      ],
+      "training": [
+        "자이로토닉 프리트레이닝"
+      ],
+      "website": null,
+      "instagram": "gyrotonic_dam",
+      "en": {
+        "name": "GYROTONIC® Dam",
+        "area": "Jeju City, Jeju",
+        "note": null
+      },
+      "ja": {
+        "name": "ジャイロトニック ダム",
+        "area": "済州 済州市",
+        "note": null
+      }
+    },
+    {
+      "name": "자이로토닉 트라이브",
+      "area": "서울 성북구 혜화",
+      "address": "서울 성북구 혜화로 88, 1층",
+      "lessons": true,
+      "gyrokinesis": true,
+      "special": [
+        "점핑 스트레칭 보드",
+        "레그 익스텐션",
+        "자이로토너"
+      ],
+      "training": [
+        "자이로키네시스 어프렌티스 리뷰"
+      ],
+      "website": "https://fascia.co.kr/",
+      "instagram": "gyrotonic_tribe",
+      "en": {
+        "name": "GYROTONIC® Tribe",
+        "area": "Hyehwa, Seongbuk-gu, Seoul",
+        "note": null
+      },
+      "ja": {
+        "name": "ジャイロトニック トライブ",
+        "area": "ソウル 城北区 恵化",
+        "note": null
+      }
+    },
+    {
+      "name": "자이로토닉 에코",
+      "area": "서울 성동구 성수동",
+      "address": "서울 성동구 성수일로1길 3, 6층",
+      "lessons": true,
+      "gyrokinesis": null,
+      "special": [
+        "아치웨이",
+        "점핑 스트레칭 보드",
+        "레그 익스텐션",
+        "자이로토너"
+      ],
+      "training": [
+        "자이로토닉 최종 인증",
+        "자이로키네시스 최종 인증",
+        "유방암 적용 과정"
+      ],
+      "website": null,
+      "instagram": null,
+      "note": "공식 등록 주소 기준 · 청담 · 삼성 · 송도 지점 운영",
+      "en": {
+        "name": "GYROTONIC® Echo",
+        "area": "Seongsu-dong, Seongdong-gu, Seoul",
+        "note": "Official listed address · branches in Cheongdam, Samseong and Songdo"
+      },
+      "ja": {
+        "name": "ジャイロトニック エコー",
+        "area": "ソウル 城東区 聖水洞",
+        "note": "公式登録住所 · 清潭・三成・松島にも支店"
+      }
+    },
+    {
+      "name": "자이로토닉 에코 천안",
+      "area": "충남 천안시 서북구 불당동",
+      "address": "천안시 서북구 불당25로, 2층",
+      "lessons": true,
+      "gyrokinesis": null,
+      "special": [
+        "점핑 스트레칭 보드",
+        "레그 익스텐션"
+      ],
+      "training": [],
+      "website": null,
+      "instagram": null,
+      "en": {
+        "name": "GYROTONIC® Echo Cheonan",
+        "area": "Buldang-dong, Seobuk-gu, Cheonan",
+        "note": null
+      },
+      "ja": {
+        "name": "ジャイロトニック エコー天安",
+        "area": "天安市 西北区 プルダン洞",
+        "note": null
+      }
+    },
+    {
+      "name": "아트필라테스 청담 본점",
+      "area": "서울 강남구 청담동",
+      "address": "서울 강남구 도산대로 454, 청담휴먼스타빌 3층",
+      "lessons": true,
+      "gyrokinesis": null,
+      "special": [
+        "점핑 스트레칭 보드"
+      ],
+      "training": [
+        "자이로토닉 파운데이션 · 어프렌티스"
+      ],
+      "website": null,
+      "instagram": null,
+      "en": {
+        "name": "Art Pilates Cheongdam",
+        "area": "Cheongdam-dong, Gangnam-gu, Seoul",
+        "note": null
+      },
+      "ja": {
+        "name": "アートピラティス清潭 本店",
+        "area": "ソウル 江南区 清潭洞",
+        "note": null
+      }
+    },
+    {
+      "name": "뉴트럴 스튜디오",
+      "area": "경기 화성시 동탄",
+      "address": "경기 화성시 동탄공원로 36, 3층",
+      "lessons": true,
+      "gyrokinesis": null,
+      "special": [
+        "아치웨이",
+        "점핑 스트레칭 보드"
+      ],
+      "training": [],
+      "website": null,
+      "instagram": null,
+      "en": {
+        "name": "Neutral Studio",
+        "area": "Dongtan, Hwaseong, Gyeonggi",
+        "note": null
+      },
+      "ja": {
+        "name": "ニュートラルスタジオ",
+        "area": "京畿道 華城市 東灘",
+        "note": null
+      }
+    },
+    {
+      "name": "자이로토닉 아이디얼바디",
+      "area": "경기 수원시 권선구",
+      "address": "경기 수원시 권선구 권선로720번길 41, 1층",
+      "lessons": true,
+      "gyrokinesis": null,
+      "special": [
+        "레그 익스텐션"
+      ],
+      "training": [
+        "점핑 스트레칭 보드 · 레그 익스텐션 과정"
+      ],
+      "website": null,
+      "instagram": null,
+      "en": {
+        "name": "GYROTONIC® Ideal Body",
+        "area": "Gwonseon-gu, Suwon, Gyeonggi",
+        "note": null
+      },
+      "ja": {
+        "name": "ジャイロトニック アイディアルボディ",
+        "area": "京畿道 水原市 勧善区",
+        "note": null
+      }
+    },
+    {
+      "name": "자이로토닉 청담",
+      "area": "서울 강남구 청담동",
+      "address": "서울 강남구 학동로101길 33, 3층",
+      "lessons": true,
+      "gyrokinesis": null,
+      "special": [
+        "아치웨이",
+        "점핑 스트레칭 보드",
+        "레그 익스텐션",
+        "자이로토너"
+      ],
+      "training": [],
+      "website": null,
+      "instagram": "gyrotonic_cheongdam_official",
+      "en": {
+        "name": "GYROTONIC® Cheongdam",
+        "area": "Cheongdam-dong, Gangnam-gu, Seoul",
+        "note": null
+      },
+      "ja": {
+        "name": "ジャイロトニック清潭",
+        "area": "ソウル 江南区 清潭洞",
+        "note": null
+      }
+    },
+    {
+      "name": "아든 필라테스",
+      "area": "부산 남구",
+      "address": "부산 남구 진남로127번길 8",
+      "lessons": null,
+      "gyrokinesis": null,
+      "special": [],
+      "training": [],
+      "website": null,
+      "instagram": null,
+      "en": {
+        "name": "Arden Pilates",
+        "area": "Nam-gu, Busan",
+        "note": null
+      },
+      "ja": {
+        "name": "アーデン・ピラティス",
+        "area": "釜山 南区",
+        "note": null
+      }
+    },
+    {
+      "name": "후스파인",
+      "area": "전북 전주",
+      "address": null,
+      "lessons": null,
+      "gyrokinesis": null,
+      "special": [],
+      "training": [],
+      "website": null,
+      "instagram": null,
+      "en": {
+        "name": "Hoospine",
+        "area": "Jeonju, Jeonbuk",
+        "note": null
+      },
+      "ja": {
+        "name": "フースパイン",
+        "area": "全北 全州",
+        "note": null
+      }
+    },
+    {
+      "name": "자이로토닉 플리에",
+      "area": "서울 광진구",
+      "address": null,
+      "lessons": null,
+      "gyrokinesis": null,
+      "special": [],
+      "training": [],
+      "website": null,
+      "instagram": null,
+      "en": {
+        "name": "GYROTONIC® Plié",
+        "area": "Gwangjin-gu, Seoul",
+        "note": null
+      },
+      "ja": {
+        "name": "ジャイロトニック プリエ",
+        "area": "ソウル 広津区",
+        "note": null
+      }
+    },
+    {
+      "name": "자이로토닉 누크",
+      "area": "제주",
+      "address": null,
+      "lessons": null,
+      "gyrokinesis": null,
+      "special": [],
+      "training": [],
+      "website": null,
+      "instagram": null,
+      "en": {
+        "name": "GYROTONIC® Nook",
+        "area": "Jeju",
+        "note": null
+      },
+      "ja": {
+        "name": "ジャイロトニック ヌーク",
+        "area": "済州",
+        "note": null
+      }
+    },
+    {
+      "name": "제이앤에스 바디플로우",
+      "area": "서울 종로구",
+      "address": "서울 종로구 이화장길 54, 2층",
+      "lessons": true,
+      "gyrokinesis": null,
+      "special": [
+        "아치웨이",
+        "점핑 스트레칭 보드",
+        "레그 익스텐션",
+        "자이로토너"
+      ],
+      "training": [
+        "자이로토닉 프리 · 파운데이션 · 어프렌티스 · 최종 인증",
+        "자이로키네시스 프리 · 파운데이션 · 어프렌티스 · 최종 인증",
+        "스페셜 머신 과정"
+      ],
+      "website": null,
+      "instagram": "jns_sunmi.shim",
+      "en": {
+        "name": "J&S Body Flow",
+        "area": "Jongno-gu, Seoul",
+        "note": null
+      },
+      "ja": {
+        "name": "J&S ボディフロー",
+        "area": "ソウル 鍾路区",
+        "note": null
+      }
+    },
+    {
+      "name": "더 스파이럴",
+      "area": "경기 성남시 분당",
+      "address": null,
+      "lessons": null,
+      "gyrokinesis": null,
+      "special": [],
+      "training": [
+        "프리트레이닝"
+      ],
+      "website": "https://www.thespiralbundang.com/",
+      "instagram": null,
+      "en": {
+        "name": "The Spiral",
+        "area": "Bundang, Seongnam, Gyeonggi",
+        "note": null
+      },
+      "ja": {
+        "name": "ザ・スパイラル",
+        "area": "京畿道 城南市 盆唐",
+        "note": null
+      }
+    },
+    {
+      "name": "스튜디오 디파인",
+      "area": null,
+      "address": null,
+      "lessons": null,
+      "gyrokinesis": true,
+      "special": [],
+      "training": [
+        "프리트레이닝 · 파운데이션 · 어프렌티스 · 최종 인증"
+      ],
+      "website": "http://www.studio-define.com/",
+      "instagram": null,
+      "en": {
+        "name": "Studio Define",
+        "area": null,
+        "note": null
+      },
+      "ja": {
+        "name": "スタジオ・ディファイン",
+        "area": null,
+        "note": null
+      }
+    }
+  ]
+}

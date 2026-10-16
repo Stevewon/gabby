@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="robots" content="noindex, nofollow">
-  <title>사진 관리 | 개비스튜디오</title>
+  <title>사이트 관리 | 개비스튜디오</title>
   <style>
     :root {
       --bg: #f6f1ea; --surface: #fffdf9; --ink: #2f2a25; --soft: #6b6158;
@@ -56,12 +56,35 @@
     .settings { display: grid; gap: 14px; grid-template-columns: 1fr; margin-top: 14px; }
     @media (min-width: 760px) { .settings { grid-template-columns: 1fr 1fr; } }
     .settings h3 { font-size: 16px; }
+    .tabs { display: flex; gap: 8px; margin-top: 18px; flex-wrap: wrap; }
+    .tabs button.on { background: var(--ink); color: #fff; border-color: var(--ink); }
+    .ctool { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; margin-top: 14px; position: sticky; top: 62px; z-index: 4; background: var(--bg); padding: 10px 0; }
+    .ctool .msg { margin: 0; flex: 1 1 220px; }
+    .clist { display: grid; gap: 12px; margin-top: 6px; }
+    .cedit { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; }
+    .cedit > summary { list-style: none; cursor: pointer; padding: 14px 16px; display: flex; gap: 10px; align-items: baseline; flex-wrap: wrap; }
+    .cedit > summary::-webkit-details-marker { display: none; }
+    .cedit > summary b { font-size: 15px; }
+    .cedit > summary span { font-size: 12.5px; color: var(--soft); }
+    .cedit > summary em { font-style: normal; font-size: 11.5px; color: var(--accent); margin-left: auto; }
+    .cedit .cbody { padding: 0 16px 16px; border-top: 1px solid var(--line); }
+    .cedit .row2 { display: grid; gap: 0 12px; grid-template-columns: 1fr; }
+    @media (min-width: 700px) { .cedit .row2 { grid-template-columns: 1fr 1fr; } }
+    .cedit select, .cedit textarea { width: 100%; border: 1px solid var(--line); border-radius: 10px; padding: 10px 12px; font: inherit; font-size: 16px; background: #fff; }
+    .cedit select { height: 46px; padding: 0 10px; }
+    .cedit textarea { min-height: 96px; resize: vertical; }
+    .cedit .checks { display: flex; gap: 6px 16px; flex-wrap: wrap; }
+    .cedit .checks label { display: flex; gap: 6px; align-items: center; margin: 4px 0; font-weight: 400; font-size: 14px; }
+    .cedit details.i18n { margin-top: 14px; border: 1px dashed var(--line); border-radius: 10px; padding: 8px 12px; }
+    .cedit details.i18n summary { cursor: pointer; font-size: 13px; color: var(--soft); }
+    .cedit .cact { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 16px; }
+    .cedit .cact .del { color: var(--danger); margin-left: auto; }
     [hidden] { display: none !important; }
   </style>
 </head>
 <body>
   <header>
-    <h1>GABBY STUDIO · 사진 관리</h1>
+    <h1>GABBY STUDIO · 사이트 관리</h1>
     <div class="links">
       <a class="btn small" href="../" target="_blank" rel="noopener">사이트 보기</a>
       <button class="small" id="logout" hidden>로그아웃</button>
@@ -94,7 +117,7 @@
     <!-- 로그인 -->
     <section class="card auth" id="login" hidden>
       <h2>관리자 로그인</h2>
-      <p class="desc">사이트 사진을 바꾸려면 로그인해 주세요.</p>
+      <p class="desc">사이트 사진과 교육 센터 정보를 바꾸려면 로그인해 주세요.</p>
       <form id="login-form">
         <label for="l-id">아이디</label>
         <input type="text" id="l-id" autocomplete="username" required>
@@ -108,7 +131,23 @@
     <!-- 관리 화면 -->
     <section id="dash" hidden>
       <div class="notice">사진을 고르면 미리보기가 나오고, <b>저장</b>을 누르면 사이트에 올라갑니다. 사이트에는 <b>보통 1~3분, 늦으면 10분 안에</b> 반영되며, 휴대폰으로 찍은 큰 사진도 자동으로 알맞은 크기로 줄여서 올립니다. 영어·일본어 페이지도 같은 사진을 함께 씁니다.</div>
-      <div id="groups"></div>
+      <div class="tabs">
+        <button class="small on" type="button" data-tab="photos">사진</button>
+        <button class="small" type="button" data-tab="centers">교육 센터</button>
+      </div>
+      <div id="tab-photos"><div id="groups"></div></div>
+
+      <div id="tab-centers" class="group" hidden>
+        <h2>전국 교육 센터</h2>
+        <p>홈 「교육 센터」 목록입니다. 센터를 눌러 내용을 고치고, 위의 <b>센터 정보 저장</b>을 누르면 한국어 · 영어 · 일본어 페이지에 함께 반영됩니다. 영어 · 일본어 이름을 비워 두면 한국어가 그대로 나옵니다.</p>
+        <div class="ctool">
+          <button class="primary small" type="button" id="c-save">센터 정보 저장</button>
+          <button class="small" type="button" id="c-add">+ 센터 추가</button>
+          <button class="small" type="button" id="c-reload">다시 불러오기</button>
+          <p class="msg" id="c-msg"></p>
+        </div>
+        <div class="clist" id="c-list"></div>
+      </div>
 
       <div class="group">
         <h2>계정 설정</h2>
@@ -440,6 +479,165 @@
       });
       return el;
     }
+
+    // ---------- 교육 센터 ----------
+    const CENTERS_PATH = 'data/centers.json';
+    const MACHINES = ['아치웨이', '점핑 스트레칭 보드', '레그 익스텐션', '자이로토너'];
+    let centers = null, centersDirty = false;
+    const utf8b64 = (str) => btoa(unescape(encodeURIComponent(str)));
+    const fromB64 = (b) => decodeURIComponent(escape(atob(b.replace(/\n/g, ''))));
+    const cMsg = (t, k) => setMsg($('c-msg'), t, k);
+    const markDirty = () => { centersDirty = true; cMsg('저장하지 않은 변경 사항이 있습니다. 「센터 정보 저장」을 눌러 주세요.'); };
+    const nz = (v) => (v.trim() ? v.trim() : null);
+
+    async function loadCenters() {
+      cMsg('불러오는 중…');
+      try {
+        let j;
+        try { j = JSON.parse(fromB64((await gh('/contents/' + CENTERS_PATH + '?ref=' + BRANCH)).content)); }
+        catch (e) { j = await (await fetch(SITE + CENTERS_PATH + '?t=' + Date.now(), { cache: 'no-store' })).json(); }
+        centers = j.centers || [];
+        centersDirty = false;
+        renderCenters();
+        cMsg('센터 ' + centers.length + '곳');
+      } catch (e) { cMsg('센터 정보를 불러오지 못했습니다: ' + e.message, 'err'); }
+    }
+    function field(label, value, onInput, opts = {}) {
+      const wrap = document.createElement('div');
+      const lb = document.createElement('label'); lb.textContent = label; wrap.appendChild(lb);
+      const inp = document.createElement(opts.area ? 'textarea' : 'input');
+      if (!opts.area) inp.type = 'text';
+      inp.value = value == null ? '' : value;
+      if (opts.ph) inp.placeholder = opts.ph;
+      inp.addEventListener('input', () => { onInput(inp.value); markDirty(); });
+      wrap.appendChild(inp);
+      if (opts.hint) { const h = document.createElement('p'); h.className = 'hint'; h.textContent = opts.hint; wrap.appendChild(h); }
+      return wrap;
+    }
+    function triSelect(label, value, onChange) {
+      const wrap = document.createElement('div');
+      wrap.innerHTML = '<label></label><select><option value="1">운영 확인</option><option value="0">확인 중 / 모름</option></select>';
+      wrap.querySelector('label').textContent = label;
+      const sel = wrap.querySelector('select');
+      sel.value = value ? '1' : '0';
+      sel.addEventListener('change', () => { onChange(sel.value === '1' ? true : null); markDirty(); });
+      return wrap;
+    }
+    function centerCard(c, idx, open) {
+      c.en = c.en || {}; c.ja = c.ja || {}; c.special = c.special || []; c.training = c.training || [];
+      const d = document.createElement('details');
+      d.className = 'cedit'; d.open = !!open;
+      const sum = document.createElement('summary');
+      const title = () => {
+        sum.innerHTML = '';
+        const b = document.createElement('b'); b.textContent = (idx + 1) + '. ' + (c.name || '(새 센터 · 이름 입력)');
+        const sp = document.createElement('span'); sp.textContent = c.area || '';
+        const em = document.createElement('em'); em.textContent = '눌러서 수정';
+        sum.append(b, sp, em);
+      };
+      title(); d.appendChild(sum);
+      const body = document.createElement('div'); body.className = 'cbody'; d.appendChild(body);
+      const row = (...els) => { const r = document.createElement('div'); r.className = 'row2'; r.append(...els); body.appendChild(r); };
+      row(
+        field('센터 이름 *', c.name, (v) => { c.name = v.trim(); title(); }),
+        field('지역', c.area, (v) => { c.area = nz(v); title(); }, { ph: '예: 서울 강남구' }),
+      );
+      body.appendChild(field('주소', c.address, (v) => { c.address = nz(v); }, { ph: '비워 두면 「주소 확인 중」으로 표시' }));
+      row(
+        field('홈페이지 주소', c.website, (v) => { c.website = nz(v); }, { ph: 'https://' }),
+        field('인스타그램 아이디', c.instagram, (v) => { c.instagram = nz(v.replace(/^@/, '').replace(/^https?:\/\/(www\.)?instagram\.com\//, '').replace(/[/?].*$/, '')); }, { ph: '@ 없이 아이디만 (주소를 붙여 넣어도 됩니다)' }),
+      );
+      row(
+        triSelect('개인레슨', c.lessons, (v) => { c.lessons = v; }),
+        triSelect('자이로키네시스', c.gyrokinesis, (v) => { c.gyrokinesis = v; }),
+      );
+      const sp = document.createElement('div');
+      sp.innerHTML = '<label>스페셜 머신</label><div class="checks"></div>';
+      const checks = sp.querySelector('.checks');
+      const all = [...new Set([...MACHINES, ...c.special])];
+      all.forEach((m) => {
+        const l = document.createElement('label'); const cb = document.createElement('input'); cb.type = 'checkbox'; cb.checked = c.special.includes(m);
+        cb.addEventListener('change', () => {
+          const on = new Set(c.special); if (cb.checked) on.add(m); else on.delete(m);
+          c.special = all.filter((x) => on.has(x)); markDirty();
+        });
+        l.append(cb, document.createTextNode(m)); checks.appendChild(l);
+      });
+      body.appendChild(sp);
+      body.appendChild(field('강사 교육 과정 (한 줄에 하나씩)', c.training.join('\n'), (v) => { c.training = v.split('\n').map((x) => x.trim()).filter(Boolean); }, { area: true, hint: '비워 두면 「강사 교육」 표시가 꺼집니다. 영어 · 일본어 페이지에서는 과정 이름이 자동 번역됩니다.' }));
+      body.appendChild(field('메모 (선택)', c.note, (v) => { c.note = nz(v); }, { ph: '예: 2005년 국내 최초 본사 승인 교육센터' }));
+      const tr = document.createElement('details'); tr.className = 'i18n';
+      tr.innerHTML = '<summary>영어 · 일본어 페이지 표기 (선택)</summary>';
+      const t1 = document.createElement('div'); t1.className = 'row2';
+      t1.append(
+        field('영어 이름', c.en.name, (v) => { c.en.name = nz(v); }),
+        field('영어 지역', c.en.area, (v) => { c.en.area = nz(v); }),
+        field('일본어 이름', c.ja.name, (v) => { c.ja.name = nz(v); }),
+        field('일본어 지역', c.ja.area, (v) => { c.ja.area = nz(v); }),
+        field('영어 메모', c.en.note, (v) => { c.en.note = nz(v); }),
+        field('일본어 메모', c.ja.note, (v) => { c.ja.note = nz(v); }),
+      );
+      tr.appendChild(t1); body.appendChild(tr);
+      const act = document.createElement('div'); act.className = 'cact';
+      const mk = (txt, cls, fn) => { const b = document.createElement('button'); b.type = 'button'; b.className = 'small' + (cls ? ' ' + cls : ''); b.textContent = txt; b.addEventListener('click', fn); return b; };
+      act.append(
+        mk('▲ 위로', '', () => { if (idx > 0) { [centers[idx - 1], centers[idx]] = [centers[idx], centers[idx - 1]]; markDirty(); renderCenters(idx - 1); } }),
+        mk('▼ 아래로', '', () => { if (idx < centers.length - 1) { [centers[idx + 1], centers[idx]] = [centers[idx], centers[idx + 1]]; markDirty(); renderCenters(idx + 1); } }),
+        mk('센터 삭제', 'del', () => { if (confirm('「' + (c.name || '이 센터') + '」를 목록에서 삭제할까요? (저장해야 사이트에 반영됩니다)')) { centers.splice(idx, 1); markDirty(); renderCenters(); } }),
+      );
+      body.appendChild(act);
+      return d;
+    }
+    function renderCenters(openIdx) {
+      const list = $('c-list'); list.innerHTML = '';
+      centers.forEach((c, i) => list.appendChild(centerCard(c, i, i === openIdx)));
+      if (openIdx != null && list.children[openIdx]) list.children[openIdx].scrollIntoView({ block: 'nearest' });
+    }
+    $('c-add').addEventListener('click', () => {
+      if (!centers) return;
+      centers.unshift({ name: '', area: null, address: null, lessons: null, gyrokinesis: null, special: [], training: [], website: null, instagram: null, note: null, en: {}, ja: {} });
+      markDirty(); renderCenters(0);
+    });
+    $('c-reload').addEventListener('click', () => { if (!centersDirty || confirm('저장하지 않은 변경 사항이 사라집니다. 다시 불러올까요?')) loadCenters(); });
+    $('c-save').addEventListener('click', async () => {
+      if (!centers) return;
+      const bad = centers.findIndex((c) => !c.name);
+      if (bad >= 0) { renderCenters(bad); return cMsg((bad + 1) + '번째 센터의 이름을 입력해 주세요.', 'err'); }
+      const btn = $('c-save'); btn.disabled = true;
+      const stamp = Date.now();
+      const tx = (o) => ({ name: o.name || null, area: o.area || null, note: o.note || null });
+      const clean = centers.map((c) => ({
+        name: c.name, area: c.area || null, address: c.address || null,
+        lessons: c.lessons ? true : null, gyrokinesis: c.gyrokinesis ? true : null,
+        special: c.special || [], training: c.training || [],
+        website: c.website || null, instagram: c.instagram || null, note: c.note || null,
+        en: tx(c.en || {}), ja: tx(c.ja || {}),
+      }));
+      const content = utf8b64(JSON.stringify({ updated: stamp, centers: clean }, null, 2) + '\n');
+      const run = async () => { cMsg('저장 중…'); await putFile(CENTERS_PATH, content, 'Admin: 교육 센터 정보 수정'); };
+      const task = saveQueue.then(run, run);
+      saveQueue = task.catch(() => {});
+      try {
+        await task;
+        centersDirty = false;
+        btn.disabled = false;
+        cMsg('저장 완료 · 사이트 반영 확인 중… (보통 1~3분, 이 화면을 닫아도 반영됩니다)');
+        const until = Date.now() + 10 * 60 * 1000;
+        let live = false;
+        while (Date.now() < until) {
+          try { const j = await (await fetch(SITE + CENTERS_PATH + '?t=' + Date.now(), { cache: 'no-store' })).json(); if (j.updated >= stamp) { live = true; break; } } catch (e) { /* 아직 반영 전 */ }
+          await new Promise((r) => setTimeout(r, 10000));
+        }
+        if (!centersDirty) cMsg(live ? '✅ 사이트 반영 완료! 한국어 · 영어 · 일본어 페이지에 모두 나옵니다.' : '저장은 되었지만 사이트 반영이 늦어지고 있습니다. 10분 뒤 사이트를 확인해 주세요.', live ? 'ok' : 'err');
+      } catch (e) { cMsg(e.message, 'err'); btn.disabled = false; }
+    });
+    document.querySelectorAll('.tabs button').forEach((b) => b.addEventListener('click', () => {
+      document.querySelectorAll('.tabs button').forEach((x) => x.classList.toggle('on', x === b));
+      $('tab-photos').hidden = b.dataset.tab !== 'photos';
+      $('tab-centers').hidden = b.dataset.tab !== 'centers';
+      if (b.dataset.tab === 'centers' && !centers) loadCenters();
+    }));
+    window.addEventListener('beforeunload', (e) => { if (centersDirty) { e.preventDefault(); e.returnValue = ''; } });
 
     function enterDash() {
       show('dash');
