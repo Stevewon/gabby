@@ -166,14 +166,14 @@
         { file: 'program-pilates.jpg', name: '재활 필라테스', where: '프로그램 3번째 카드', max: 1400 },
         { file: 'program-lymph.jpg', name: '림프순환 운동', where: '프로그램 4번째 카드', max: 1400 },
       ] },
-      { title: '장비 소개', desc: '홈 「장비 소개」와 「기구 원리」 페이지에 함께 쓰입니다. 도용 방지를 위해 GABBY PILATESSTUDIO 워터마크가 가운데에 흐리게 자동으로 들어갑니다. 이미 로고가 박힌 사진은 「워터마크 넣기」를 해제하고 올리세요.', slots: [
+      { title: '장비 소개', desc: '홈 「장비 소개」와 「기구 원리」 페이지에 함께 쓰입니다. 도용 방지 로고가 가운데에 작고 흐리게 자동으로 들어갑니다. 이미 로고가 박힌 사진은 「워터마크 넣기」를 해제하고 올리세요.', slots: [
         { file: 'equip-pulley.jpg', name: '풀리 타워', where: '자이로토닉 장비 1', max: 1400 },
         { file: 'equip-archway.jpg', name: '아치웨이', where: '자이로토닉 장비 2', max: 1400 },
         { file: 'equip-jsb.jpg', name: '점핑 스트레칭 보드', where: '자이로토닉 장비 3', max: 1400 },
         { file: 'equip-legext.jpg', name: '레그 익스텐션', where: '자이로토닉 장비 4 · 기구 원리 페이지', max: 1400 },
         { file: 'equip-pilates.jpg', name: '필라테스 대기구', where: '필라테스 대기구 큰 사진 · 기구 원리 페이지 맨 위 배경 (가로로 긴 사진 추천)', max: 2000 },
       ] },
-      { title: '스튜디오 갤러리', desc: '홈 「개비스튜디오」 사진 모음입니다.', slots: [1, 2, 3, 4, 5, 6, 7].map((n) => (
+      { title: '스튜디오 갤러리', desc: '홈 「개비스튜디오」 사진 모음입니다. 도용 방지 로고가 가운데에 작고 흐리게 자동으로 들어갑니다.', slots: [1, 2, 3, 4, 5, 6, 7].map((n) => (
         { file: 'gallery-' + n + '.jpg', name: '갤러리 ' + n, where: n >= 6 ? '갤러리 ' + n + '번째 (PC에서 가로로 넓게 보임)' : '갤러리 ' + n + '번째', max: 1800 }
       )) },
     ];
@@ -325,9 +325,9 @@
         i.onerror = () => reject(new Error('워터마크 이미지를 불러오지 못했습니다. 새로고침 후 다시 시도해 주세요.'));
         i.src = '../images/watermark.png?v=' + Date.now();
       });
-      const mw = Math.min(w * 0.034, h * 0.034 * markImg.naturalWidth / markImg.naturalHeight);
+      const mw = Math.min(w * 0.06, h * 0.06 * markImg.naturalWidth / markImg.naturalHeight);
       const mh = mw * markImg.naturalHeight / markImg.naturalWidth;
-      ctx.save(); ctx.globalAlpha = 0.18;
+      ctx.save(); ctx.globalAlpha = 0.25;
       ctx.drawImage(markImg, (w - mw) / 2, (h - mh) / 2, mw, mh);
       ctx.restore();
     }
@@ -385,7 +385,7 @@
       const input = el.querySelector('input[type=file]');
       const wm = el.querySelector('.wm');
       const wmBox = wm.querySelector('input');
-      if (slot.file.startsWith('equip-')) wm.hidden = false;
+      if (/^(equip|gallery)-/.test(slot.file)) wm.hidden = false;
       let lastFile = null;
       const save = el.querySelector('.save');
       const cancel = el.querySelector('.cancel');
