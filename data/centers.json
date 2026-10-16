@@ -1,5 +1,5 @@
 {
-  "updated": 1792137605666,
+  "updated": 1792193615368,
   "centers": [
     {
       "name": "서울자이로토닉협회",
@@ -51,6 +51,7 @@
       ],
       "website": "http://www.gyrotonicinspine.com",
       "instagram": null,
+      "note": null,
       "en": {
         "name": "GYROTONIC® InSpine Busan",
         "area": "Dongnae-gu, Busan",
@@ -80,6 +81,7 @@
       ],
       "website": "https://www.gyrotonicchaeum.com/",
       "instagram": "gyrotonic_chaeum",
+      "note": null,
       "en": {
         "name": "GYROTONIC® Chaeum",
         "area": "Dunsan-dong, Seo-gu, Daejeon",
@@ -111,6 +113,7 @@
       ],
       "website": "https://www.gyrotonicjaemi.com",
       "instagram": "gyrotonic_jaemi",
+      "note": null,
       "en": {
         "name": "GYROTONIC® Jaemi",
         "area": "Yangjae-dong, Seocho-gu, Seoul",
@@ -142,6 +145,7 @@
       ],
       "website": "http://www.archncurledu.com/",
       "instagram": "archncurl_chungdam",
+      "note": null,
       "en": {
         "name": "Arch n Curl",
         "area": "Gangnam-gu, Seoul",
@@ -172,6 +176,7 @@
       ],
       "website": null,
       "instagram": "gyrotonicchord",
+      "note": null,
       "en": {
         "name": "GYROTONIC® Chord",
         "area": "Sinsa · Cheongdam, Gangnam-gu, Seoul",
@@ -201,6 +206,7 @@
       ],
       "website": "http://www.gyrotonicseorae.com/",
       "instagram": "gyrotonic_seorae",
+      "note": null,
       "en": {
         "name": "GYROTONIC® Seorae",
         "area": "Seorae Village, Seocho-gu, Seoul",
@@ -230,6 +236,7 @@
       ],
       "website": null,
       "instagram": "anyfitgyrotonic",
+      "note": null,
       "en": {
         "name": "GYROTONIC® Anyfit",
         "area": "Mapo-gu, Seoul",
@@ -260,6 +267,7 @@
       ],
       "website": null,
       "instagram": "mauve_hannam",
+      "note": null,
       "en": {
         "name": "GYROTONIC® Mauve Hannam",
         "area": "Hannam-dong, Yongsan-gu, Seoul",
@@ -287,6 +295,7 @@
       ],
       "website": null,
       "instagram": "gyrotonic_dam",
+      "note": null,
       "en": {
         "name": "GYROTONIC® Dam",
         "area": "Jeju City, Jeju",
@@ -314,6 +323,7 @@
       ],
       "website": "https://fascia.co.kr/",
       "instagram": "gyrotonic_tribe",
+      "note": null,
       "en": {
         "name": "GYROTONIC® Tribe",
         "area": "Hyehwa, Seongbuk-gu, Seoul",
@@ -369,6 +379,7 @@
       "training": [],
       "website": null,
       "instagram": null,
+      "note": null,
       "en": {
         "name": "GYROTONIC® Echo Cheonan",
         "area": "Buldang-dong, Seobuk-gu, Cheonan",
@@ -394,6 +405,7 @@
       ],
       "website": null,
       "instagram": null,
+      "note": null,
       "en": {
         "name": "Art Pilates Cheongdam",
         "area": "Cheongdam-dong, Gangnam-gu, Seoul",
@@ -418,6 +430,7 @@
       "training": [],
       "website": null,
       "instagram": null,
+      "note": null,
       "en": {
         "name": "Neutral Studio",
         "area": "Dongtan, Hwaseong, Gyeonggi",
@@ -443,6 +456,7 @@
       ],
       "website": null,
       "instagram": null,
+      "note": null,
       "en": {
         "name": "GYROTONIC® Ideal Body",
         "area": "Gwonseon-gu, Suwon, Gyeonggi",
@@ -469,6 +483,7 @@
       "training": [],
       "website": null,
       "instagram": "gyrotonic_cheongdam_official",
+      "note": null,
       "en": {
         "name": "GYROTONIC® Cheongdam",
         "area": "Cheongdam-dong, Gangnam-gu, Seoul",
@@ -481,7 +496,7 @@
       }
     },
     {
-      "name": "아든 필라테스",
+      "name": "아덴 필라테스",
       "area": "부산 남구",
       "address": "부산 남구 진남로127번길 8",
       "lessons": null,
@@ -490,6 +505,7 @@
       "training": [],
       "website": null,
       "instagram": null,
+      "note": null,
       "en": {
         "name": "Arden Pilates",
         "area": "Nam-gu, Busan",
@@ -511,6 +527,7 @@
       "training": [],
       "website": null,
       "instagram": null,
+      "note": null,
       "en": {
         "name": "Hoospine",
         "area": "Jeonju, Jeonbuk",
@@ -532,6 +549,7 @@
       "training": [],
       "website": null,
       "instagram": null,
+      "note": null,
       "en": {
         "name": "GYROTONIC® Plié",
         "area": "Gwangjin-gu, Seoul",
@@ -553,6 +571,7 @@
       "training": [],
       "website": null,
       "instagram": null,
+      "note": null,
       "en": {
         "name": "GYROTONIC® Nook",
         "area": "Jeju",
@@ -583,6 +602,7 @@
       ],
       "website": null,
       "instagram": "jns_sunmi.shim",
+      "note": null,
       "en": {
         "name": "J&S Body Flow",
         "area": "Jongno-gu, Seoul",
@@ -606,6 +626,7 @@
       ],
       "website": "https://www.thespiralbundang.com/",
       "instagram": null,
+      "note": null,
       "en": {
         "name": "The Spiral",
         "area": "Bundang, Seongnam, Gyeonggi",
@@ -629,6 +650,7 @@
       ],
       "website": "http://www.studio-define.com/",
       "instagram": null,
+      "note": null,
       "en": {
         "name": "Studio Define",
         "area": null,
