@@ -1,5 +1,5 @@
 {
-  "updated": 1792193615368,
+  "updated": 1792194664197,
   "centers": [
     {
       "name": "서울자이로토닉협회",
@@ -496,15 +496,17 @@
       }
     },
     {
-      "name": "아덴 필라테스",
+      "name": "Arden 필라테스",
       "area": "부산 남구",
       "address": "부산 남구 진남로127번길 8",
       "lessons": null,
       "gyrokinesis": null,
-      "special": [],
+      "special": [
+        "점핑 스트레칭 보드"
+      ],
       "training": [],
       "website": null,
-      "instagram": null,
+      "instagram": "arden_pilagyro",
       "note": null,
       "en": {
         "name": "Arden Pilates",
