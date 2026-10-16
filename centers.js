@@ -76,6 +76,6 @@ const CENTER_TERMS = [
   // 관리자에서 고친 내용이 바로 보이도록 캐시 없이 읽음
   fetch(new URL('data/centers.json?t=' + Date.now(), root), { cache: 'no-store' })
     .then((r) => r.json())
-    .then((j) => render(j.centers || []))
+    .then((j) => render((j.centers || []).filter((c) => !c.hidden)))
     .catch(() => { list.innerHTML = ''; });
 })();

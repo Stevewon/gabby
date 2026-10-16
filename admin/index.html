@@ -66,7 +66,13 @@
     .cedit > summary::-webkit-details-marker { display: none; }
     .cedit > summary b { font-size: 15px; }
     .cedit > summary span { font-size: 12.5px; color: var(--soft); }
-    .cedit > summary em { font-style: normal; font-size: 11.5px; color: var(--accent); margin-left: auto; }
+    .cedit > summary em { font-style: normal; font-size: 11.5px; color: var(--accent); }
+    .cedit > summary .cmove { margin-left: auto; display: flex; gap: 4px; flex-wrap: wrap; align-items: center; }
+    .cedit > summary .cmove button { min-height: 34px; padding: 4px 10px; font-size: 12.5px; }
+    .cedit > summary .cmove button:disabled { opacity: .35; cursor: default; }
+    .cedit > summary .cmove .hid.on { background: #fff3e6; border-color: #e0a060; color: #8a4b00; }
+    .cedit.is-hidden { opacity: .62; border-style: dashed; }
+    .cedit.is-hidden > summary b::after { content: ' · 숨김(사이트에 안 보임)'; font-weight: 400; font-size: 12px; color: #8a4b00; }
     .cedit .cbody { padding: 0 16px 16px; border-top: 1px solid var(--line); }
     .cedit .row2 { display: grid; gap: 0 12px; grid-template-columns: 1fr; }
     @media (min-width: 700px) { .cedit .row2 { grid-template-columns: 1fr 1fr; } }
@@ -139,11 +145,12 @@
 
       <div id="tab-centers" class="group" hidden>
         <h2>전국 교육 센터</h2>
-        <p>홈 「교육 센터」 목록입니다. 센터를 눌러 내용을 고치고, 위의 <b>센터 정보 저장</b>을 누르면 한국어 · 영어 · 일본어 페이지에 함께 반영됩니다. 영어 · 일본어 이름을 비워 두면 한국어가 그대로 나옵니다.</p>
+        <p>홈 「교육 센터」 목록입니다. 센터를 눌러 내용을 고치고, <b>⤒ ▲ ▼ ⤓</b>로 순서를 바꾸고, <b>숨기기</b>를 누르면 삭제하지 않고 사이트에서만 안 보이게 됩니다. 다 고친 뒤 위의 <b>센터 정보 저장</b>을 누르면 한국어 · 영어 · 일본어 페이지에 함께 반영됩니다. 영어 · 일본어 이름을 비워 두면 한국어가 그대로 나옵니다.</p>
         <div class="ctool">
           <button class="primary small" type="button" id="c-save">센터 정보 저장</button>
           <button class="small" type="button" id="c-add">+ 센터 추가</button>
           <button class="small" type="button" id="c-reload">다시 불러오기</button>
+          <span class="hint" id="c-count" style="margin:0"></span>
           <p class="msg" id="c-msg"></p>
         </div>
         <div class="clist" id="c-list"></div>
@@ -532,9 +539,27 @@
         sum.innerHTML = '';
         const b = document.createElement('b'); b.textContent = (idx + 1) + '. ' + (c.name || '(새 센터 · 이름 입력)');
         const sp = document.createElement('span'); sp.textContent = c.area || '';
-        const em = document.createElement('em'); em.textContent = '눌러서 수정';
-        sum.append(b, sp, em);
+        const em = document.createElement('em'); em.textContent = d.open ? '접기' : '눌러서 수정';
+        const mv = document.createElement('div'); mv.className = 'cmove';
+        const btn = (txt, tip, dis, fn, cls) => {
+          const x = document.createElement('button'); x.type = 'button'; x.className = 'small' + (cls ? ' ' + cls : ''); x.textContent = txt; x.title = tip; x.disabled = dis;
+          x.addEventListener('click', (e) => { e.preventDefault(); e.stopPropagation(); fn(); });
+          return x;
+        };
+        const last = centers.length - 1;
+        mv.append(
+          btn('⤒ 맨 위', '맨 위로 올리기', idx === 0, () => moveCenter(idx, 0, d.open)),
+          btn('▲', '한 칸 위로', idx === 0, () => moveCenter(idx, idx - 1, d.open)),
+          btn('▼', '한 칸 아래로', idx === last, () => moveCenter(idx, idx + 1, d.open)),
+          btn('⤓ 맨 아래', '맨 아래로 내리기', idx === last, () => moveCenter(idx, last, d.open)),
+          btn(c.hidden ? '숨김 해제' : '숨기기', c.hidden ? '다시 사이트에 보이게 합니다' : '삭제하지 않고 사이트에서만 안 보이게 합니다', false, () => {
+            c.hidden = !c.hidden; d.classList.toggle('is-hidden', !!c.hidden); markDirty(); title(); countCenters();
+          }, c.hidden ? 'hid on' : 'hid'),
+        );
+        sum.append(b, sp, em, mv);
       };
+      d.classList.toggle('is-hidden', !!c.hidden);
+      d.addEventListener('toggle', () => title());
       title(); d.appendChild(sum);
       const body = document.createElement('div'); body.className = 'cbody'; d.appendChild(body);
       const row = (...els) => { const r = document.createElement('div'); r.className = 'row2'; r.append(...els); body.appendChild(r); };
@@ -581,17 +606,26 @@
       const act = document.createElement('div'); act.className = 'cact';
       const mk = (txt, cls, fn) => { const b = document.createElement('button'); b.type = 'button'; b.className = 'small' + (cls ? ' ' + cls : ''); b.textContent = txt; b.addEventListener('click', fn); return b; };
       act.append(
-        mk('▲ 위로', '', () => { if (idx > 0) { [centers[idx - 1], centers[idx]] = [centers[idx], centers[idx - 1]]; markDirty(); renderCenters(idx - 1); } }),
-        mk('▼ 아래로', '', () => { if (idx < centers.length - 1) { [centers[idx + 1], centers[idx]] = [centers[idx], centers[idx + 1]]; markDirty(); renderCenters(idx + 1); } }),
         mk('센터 삭제', 'del', () => { if (confirm('「' + (c.name || '이 센터') + '」를 목록에서 삭제할까요? (저장해야 사이트에 반영됩니다)')) { centers.splice(idx, 1); markDirty(); renderCenters(); } }),
       );
       body.appendChild(act);
       return d;
     }
-    function renderCenters(openIdx) {
+    function moveCenter(from, to, wasOpen) {
+      if (to < 0 || to >= centers.length || to === from) return;
+      const [c] = centers.splice(from, 1); centers.splice(to, 0, c);
+      markDirty(); renderCenters(to, wasOpen);
+    }
+    function renderCenters(focusIdx, open = true) {
       const list = $('c-list'); list.innerHTML = '';
-      centers.forEach((c, i) => list.appendChild(centerCard(c, i, i === openIdx)));
-      if (openIdx != null && list.children[openIdx]) list.children[openIdx].scrollIntoView({ block: 'nearest' });
+      centers.forEach((c, i) => list.appendChild(centerCard(c, i, open && i === focusIdx)));
+      const el = focusIdx != null && list.children[focusIdx];
+      if (el) { el.scrollIntoView({ block: 'center' }); el.animate([{ boxShadow: '0 0 0 3px var(--accent)' }, { boxShadow: '0 0 0 0 transparent' }], 1200); }
+      countCenters();
+    }
+    function countCenters() {
+      const h = centers.filter((c) => c.hidden).length;
+      $('c-count').textContent = '전체 ' + centers.length + '곳' + (h ? ' · 숨김 ' + h + '곳' : '');
     }
     $('c-add').addEventListener('click', () => {
       if (!centers) return;
@@ -612,6 +646,7 @@
         special: c.special || [], training: c.training || [],
         website: c.website || null, instagram: c.instagram || null, note: c.note || null,
         en: tx(c.en || {}), ja: tx(c.ja || {}),
+        ...(c.hidden ? { hidden: true } : {}),
       }));
       const content = utf8b64(JSON.stringify({ updated: stamp, centers: clean }, null, 2) + '\n');
       const run = async () => { cMsg('저장 중…'); await putFile(CENTERS_PATH, content, 'Admin: 교육 센터 정보 수정'); };
