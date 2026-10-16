@@ -48,6 +48,8 @@
     .slot .file { font-size: 11px; color: #9a9087; }
     .slot .actions { display: flex; gap: 8px; margin-top: auto; padding-top: 10px; flex-wrap: wrap; }
     .slot .status { font-size: 12.5px; }
+    .slot .wm { display: flex; gap: 6px; align-items: center; font-size: 12.5px; cursor: pointer; }
+    .slot .wm[hidden] { display: none; }
     .slot .status.err { color: var(--danger); }
     .slot .status.ok { color: var(--accent); }
     .notice { margin-top: 14px; padding: 14px 16px; border-radius: 12px; background: #eef3ea; font-size: 13.5px; color: #33512d; }
@@ -164,7 +166,7 @@
         { file: 'program-pilates.jpg', name: '재활 필라테스', where: '프로그램 3번째 카드', max: 1400 },
         { file: 'program-lymph.jpg', name: '림프순환 운동', where: '프로그램 4번째 카드', max: 1400 },
       ] },
-      { title: '장비 소개', desc: '홈 「장비 소개」와 「기구 원리」 페이지에 함께 쓰입니다. 도용 방지를 위해 GABBY PILATESSTUDIO 워터마크가 가운데에 흐리게 자동으로 들어갑니다.', slots: [
+      { title: '장비 소개', desc: '홈 「장비 소개」와 「기구 원리」 페이지에 함께 쓰입니다. 도용 방지를 위해 GABBY PILATESSTUDIO 워터마크가 가운데에 흐리게 자동으로 들어갑니다. 이미 로고가 박힌 사진은 「워터마크 넣기」를 해제하고 올리세요.', slots: [
         { file: 'equip-pulley.jpg', name: '풀리 타워', where: '자이로토닉 장비 1', max: 1400 },
         { file: 'equip-archway.jpg', name: '아치웨이', where: '자이로토닉 장비 2', max: 1400 },
         { file: 'equip-jsb.jpg', name: '점핑 스트레칭 보드', where: '자이로토닉 장비 3', max: 1400 },
@@ -329,7 +331,7 @@
       ctx.drawImage(markImg, (w - mw) / 2, (h - mh) / 2, mw, mh);
       ctx.restore();
     }
-    async function prepare(file, slot) {
+    async function prepare(file, slot, mark) {
       const img = await loadImage(file);
       let sx = 0, sy = 0, sw = img.naturalWidth, sh = img.naturalHeight;
       if (slot.square) { const s = Math.min(sw, sh); sx = (sw - s) / 2; sy = (sh - s) / 2; sw = sh = s; }
@@ -341,7 +343,7 @@
       ctx.fillStyle = '#fff'; ctx.fillRect(0, 0, w, h);
       ctx.drawImage(img, sx, sy, sw, sh, 0, 0, w, h);
       URL.revokeObjectURL(img.src);
-      if (slot.file.startsWith('equip-')) await drawWatermark(ctx, w, h);
+      if (mark) await drawWatermark(ctx, w, h);
       const blob = await new Promise((r) => canvas.toBlob(r, 'image/jpeg', 0.85));
       const dataUrl = await new Promise((r) => { const fr = new FileReader(); fr.onload = () => r(fr.result); fr.readAsDataURL(blob); });
       return { dataUrl, base64: dataUrl.split(',')[1], w, h, kb: Math.round(blob.size / 1024) };
@@ -371,6 +373,7 @@
         <div class="body">
           <strong></strong><span class="where"></span><span class="file"></span>
           <span class="status"></span>
+          <label class="wm" hidden><input type="checkbox" checked> 워터마크 넣기 (이미 로고가 있는 사진이면 해제)</label>
           <div class="actions">
             <label class="btn small">사진 바꾸기<input type="file" accept="image/*" hidden></label>
             <button class="small primary save" hidden>저장</button>
@@ -379,7 +382,11 @@
         </div>`;
       const img = el.querySelector('img');
       const status = el.querySelector('.status');
-      const input = el.querySelector('input');
+      const input = el.querySelector('input[type=file]');
+      const wm = el.querySelector('.wm');
+      const wmBox = wm.querySelector('input');
+      if (slot.file.startsWith('equip-')) wm.hidden = false;
+      let lastFile = null;
       const save = el.querySelector('.save');
       const cancel = el.querySelector('.cancel');
       const current = SITE + 'images/' + slot.file + '?t=' + stamp;
@@ -391,18 +398,23 @@
       const setStatus = (t, k) => { status.textContent = t; status.className = 'status' + (k ? ' ' + k : ''); };
       const reset = () => { pending = null; save.hidden = cancel.hidden = true; input.value = ''; el.querySelector('.badge')?.remove(); };
 
-      input.addEventListener('change', async () => {
-        const file = input.files && input.files[0];
-        if (!file) return;
+      const preparePreview = async (file) => {
         setStatus('사진 준비 중…');
         try {
-          pending = await prepare(file, slot);
+          pending = await prepare(file, slot, !wm.hidden && wmBox.checked);
           img.src = pending.dataUrl;
           if (!el.querySelector('.badge')) el.querySelector('.pic').insertAdjacentHTML('beforeend', '<span class="badge">미리보기</span>');
           save.hidden = cancel.hidden = false;
           setStatus(`${pending.w}×${pending.h}px · ${pending.kb}KB — 저장을 눌러야 사이트에 올라갑니다.`);
         } catch (e) { setStatus(e.message, 'err'); reset(); }
+      };
+      input.addEventListener('change', () => {
+        const file = input.files && input.files[0];
+        if (!file) return;
+        lastFile = file;
+        preparePreview(file);
       });
+      wmBox.addEventListener('change', () => { if (pending && lastFile) preparePreview(lastFile); });
       cancel.addEventListener('click', () => { img.src = current; reset(); setStatus(''); });
       save.addEventListener('click', async () => {
         if (!pending) return;
