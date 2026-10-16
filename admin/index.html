@@ -160,7 +160,7 @@
       { title: '재활 이야기', desc: '재활 이야기 페이지와 홈의 소개 띠에 쓰입니다.', slots: [
         { file: 'story-hero.jpg', name: '재활 이야기 배경', where: '재활 이야기 맨 위 · 홈 소개 띠', max: 2400 },
       ] },
-      { title: '프로그램', desc: '홈 「프로그램」 카드 사진입니다.', slots: [
+      { title: '프로그램', desc: '홈 「프로그램」 카드 사진입니다. 도용 방지 로고가 가운데에 작고 흐리게 자동으로 들어갑니다.', slots: [
         { file: 'program-gyrotonic.jpg', name: '자이로토닉', where: '프로그램 1번째 카드', max: 1400 },
         { file: 'program-gyrokinesis.jpg', name: '자이로키네시스', where: '프로그램 2번째 카드', max: 1400 },
         { file: 'program-pilates.jpg', name: '재활 필라테스', where: '프로그램 3번째 카드', max: 1400 },
@@ -385,7 +385,7 @@
       const input = el.querySelector('input[type=file]');
       const wm = el.querySelector('.wm');
       const wmBox = wm.querySelector('input');
-      if (/^(equip|gallery)-/.test(slot.file)) wm.hidden = false;
+      if (/^(equip|gallery|program)-/.test(slot.file)) wm.hidden = false;
       let lastFile = null;
       const save = el.querySelector('.save');
       const cancel = el.querySelector('.cancel');
