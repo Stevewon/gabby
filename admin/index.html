@@ -325,9 +325,9 @@
         i.onerror = () => reject(new Error('워터마크 이미지를 불러오지 못했습니다. 새로고침 후 다시 시도해 주세요.'));
         i.src = '../images/watermark.png?v=' + Date.now();
       });
-      const mw = Math.min(w * 0.86, h * 0.86 * markImg.naturalWidth / markImg.naturalHeight);
+      const mw = Math.min(w * 0.34, h * 0.34 * markImg.naturalWidth / markImg.naturalHeight);
       const mh = mw * markImg.naturalHeight / markImg.naturalWidth;
-      ctx.save(); ctx.globalAlpha = 0.38;
+      ctx.save(); ctx.globalAlpha = 0.18;
       ctx.drawImage(markImg, (w - mw) / 2, (h - mh) / 2, mw, mh);
       ctx.restore();
     }
