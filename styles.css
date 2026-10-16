@@ -667,3 +667,19 @@ html[lang="ja"] .fact::before { content: "💡 ご存じですか？"; }
 .manual-list .kind { flex: 0 0 auto; font-size: 11px; font-weight: 700; padding: 3px 8px; border-radius: 6px; background: var(--accent-dark); color: #fff; }
 .manual-list .kind.web { background: var(--clay); }
 .machine-nav { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 26px; }
+
+/* 기구 공식 동영상 버튼 · 팝업 */
+.video-btn {
+  display: inline-flex; align-items: center; gap: 6px; margin: 6px 0 10px; padding: 7px 14px;
+  border: 1px solid var(--accent-dark); border-radius: 999px; background: transparent;
+  color: var(--accent-dark); font: inherit; font-size: 13.5px; font-weight: 600; cursor: pointer;
+}
+.video-btn:hover, .video-btn:focus-visible { background: var(--accent-dark); color: #fff; }
+.video-modal { position: fixed; inset: 0; z-index: 1000; display: flex; align-items: center; justify-content: center; padding: 16px; background: rgba(20, 17, 14, .82); }
+.video-modal[hidden] { display: none; }
+.video-modal .vm-box { position: relative; width: min(960px, 100%); }
+.video-modal .vm-frame { position: relative; width: 100%; aspect-ratio: 16 / 9; background: #000; border-radius: 10px; overflow: hidden; }
+.video-modal iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+.video-modal .vm-close { position: absolute; top: -44px; right: 0; width: 38px; height: 38px; border: 0; border-radius: 50%; background: #fff; color: #2f2a25; font-size: 22px; line-height: 1; cursor: pointer; }
+.video-modal .vm-src { margin: 8px 0 0; font-size: 12px; color: #ddd; text-align: right; }
+.video-modal .vm-src a { color: #fff; }

@@ -63,3 +63,32 @@
 
   document.getElementById('year').textContent = new Date().getFullYear();
 })();
+
+// 기구 공식 동영상 (GYROTONIC® 공식 유튜브) 팝업
+(function () {
+  const btns = document.querySelectorAll('.video-btn[data-yt]');
+  if (!btns.length) return;
+  const lang = (document.documentElement.lang || 'ko').slice(0, 2);
+  const T = {
+    ko: ['닫기', 'GYROTONIC® 공식 영상 · ', '유튜브에서 보기'],
+    en: ['Close', 'Official GYROTONIC® video · ', 'Watch on YouTube'],
+    ja: ['閉じる', 'GYROTONIC® 公式動画 · ', 'YouTubeで見る'],
+  }[lang] || ['닫기', 'GYROTONIC® 공식 영상 · ', '유튜브에서 보기'];
+  const m = document.createElement('div');
+  m.className = 'video-modal'; m.hidden = true;
+  m.setAttribute('role', 'dialog'); m.setAttribute('aria-modal', 'true');
+  m.innerHTML = '<div class="vm-box"><button type="button" class="vm-close" aria-label="' + T[0] + '">×</button><div class="vm-frame"></div><p class="vm-src">' + T[1] + '<a target="_blank" rel="noopener">' + T[2] + '</a></p></div>';
+  document.body.appendChild(m);
+  const frame = m.querySelector('.vm-frame'), link = m.querySelector('.vm-src a'), closeBtn = m.querySelector('.vm-close');
+  let last = null;
+  const close = () => { m.hidden = true; frame.innerHTML = ''; document.body.style.overflow = ''; if (last) last.focus(); };
+  btns.forEach((b) => b.addEventListener('click', () => {
+    const id = b.dataset.yt; last = b;
+    frame.innerHTML = '<iframe src="https://www.youtube-nocookie.com/embed/' + id + '?autoplay=1&rel=0&playsinline=1" title="' + (b.title || 'video') + '" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe>';
+    link.href = 'https://www.youtube.com/watch?v=' + id;
+    m.hidden = false; document.body.style.overflow = 'hidden'; closeBtn.focus();
+  }));
+  closeBtn.addEventListener('click', close);
+  m.addEventListener('click', (e) => { if (e.target === m) close(); });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && !m.hidden) close(); });
+})();
