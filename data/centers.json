@@ -1,5 +1,5 @@
 {
-  "updated": 1792221560038,
+  "updated": 1792221906698,
   "centers": [
     {
       "name": "서울자이로토닉협회",
@@ -542,15 +542,18 @@
       }
     },
     {
-      "name": "자이로토닉 플리에",
+      "name": "플리에필라테스",
       "area": "서울 광진구",
-      "address": null,
-      "lessons": null,
+      "address": "구의 강변로 106",
+      "lessons": true,
       "gyrokinesis": null,
-      "special": [],
+      "special": [
+        "아치웨이",
+        "점핑 스트레칭 보드"
+      ],
       "training": [],
       "website": null,
-      "instagram": null,
+      "instagram": "plie_pilates_gyrotonic",
       "note": null,
       "en": {
         "name": "GYROTONIC® Plié",
