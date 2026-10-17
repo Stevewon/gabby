@@ -1,5 +1,5 @@
 {
-  "updated": 1792221906698,
+  "updated": 1792222002009,
   "centers": [
     {
       "name": "서울자이로토닉협회",
@@ -563,59 +563,6 @@
       "ja": {
         "name": "ジャイロトニック プリエ",
         "area": "ソウル 広津区",
-        "note": null
-      }
-    },
-    {
-      "name": "자이로토닉 누크",
-      "area": "제주",
-      "address": null,
-      "lessons": null,
-      "gyrokinesis": null,
-      "special": [],
-      "training": [],
-      "website": null,
-      "instagram": null,
-      "note": null,
-      "en": {
-        "name": "GYROTONIC® Nook",
-        "area": "Jeju",
-        "note": null
-      },
-      "ja": {
-        "name": "ジャイロトニック ヌーク",
-        "area": "済州",
-        "note": null
-      }
-    },
-    {
-      "name": "제이앤에스 바디플로우",
-      "area": "서울 종로구",
-      "address": "서울 종로구 이화장길 54, 2층",
-      "lessons": true,
-      "gyrokinesis": null,
-      "special": [
-        "아치웨이",
-        "점핑 스트레칭 보드",
-        "레그 익스텐션",
-        "자이로토너"
-      ],
-      "training": [
-        "자이로토닉 프리 · 파운데이션 · 어프렌티스 · 최종 인증",
-        "자이로키네시스 프리 · 파운데이션 · 어프렌티스 · 최종 인증",
-        "스페셜 머신 과정"
-      ],
-      "website": null,
-      "instagram": "jns_sunmi.shim",
-      "note": null,
-      "en": {
-        "name": "J&S Body Flow",
-        "area": "Jongno-gu, Seoul",
-        "note": null
-      },
-      "ja": {
-        "name": "J&S ボディフロー",
-        "area": "ソウル 鍾路区",
         "note": null
       }
     },
