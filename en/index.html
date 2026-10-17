@@ -24,7 +24,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=Noto+Serif+KR:wght@400;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../styles.css?v=202610162330">
+  <link rel="stylesheet" href="../styles.css?v=202610170100">
   <meta property="og:image" content="https://www.gabby.co.kr/images/hero.jpg">
   <meta property="og:locale" content="en_US">
   <meta property="og:site_name" content="Gabby Studio">
@@ -44,6 +44,7 @@
       <span></span><span></span>
     </button>
     <nav class="nav" id="nav">
+      <a href="#news">News</a>
       <a href="#about">Studio</a>
       <a href="#programs">Programs</a>
       <a href="#equipment">Equipment</a>
@@ -81,6 +82,14 @@
     </section>
 
     <!-- ABOUT -->
+    <!-- 공지 · 일정 (data/schedule.json, 관리자에서 수정) -->
+    <section class="section news" id="news">
+      <p class="section-tag reveal">Notice &amp; Schedule</p>
+      <h2 class="reveal">Notices &amp;<br>schedule</h2>
+      <p class="section-desc reveal">Studio news and our teacher training, workshop and class schedule. Tap a date on the calendar to see that day.</p>
+      <div class="news-app" id="news-app"></div>
+    </section>
+
     <section class="section about reveal" id="about">
       <p class="section-tag">About</p>
       <h2>A place to relearn movement —<br>Gabby Studio</h2>
@@ -339,6 +348,7 @@
 
   <script src="../script.js?v=202610162330"></script>
   <script src="../centers.js?v=202610162210"></script>
+  <script src="../schedule.js?v=202610170100"></script>
   <script src="../refs.js?v=202610151909"></script>
 </body>
 </html>

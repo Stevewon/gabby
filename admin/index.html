@@ -85,6 +85,8 @@
     .cedit details.i18n summary { cursor: pointer; font-size: 13px; color: var(--soft); }
     .cedit .cact { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 16px; }
     .cedit .cact .del { color: var(--danger); margin-left: auto; }
+    .nsub { display: flex; align-items: center; gap: 10px; margin: 26px 0 10px; font-size: 16px; }
+    .cedit input[type=date] { width: 100%; height: 46px; border: 1px solid var(--line); border-radius: 10px; padding: 0 12px; font: inherit; font-size: 16px; background: #fff; }
     [hidden] { display: none !important; }
   </style>
 </head>
@@ -139,9 +141,24 @@
       <div class="notice">사진을 고르면 미리보기가 나오고, <b>저장</b>을 누르면 사이트에 올라갑니다. 사이트에는 <b>보통 1~3분, 늦으면 10분 안에</b> 반영되며, 휴대폰으로 찍은 큰 사진도 자동으로 알맞은 크기로 줄여서 올립니다. 영어·일본어 페이지도 같은 사진을 함께 씁니다.</div>
       <div class="tabs">
         <button class="small on" type="button" data-tab="photos">사진</button>
+        <button class="small" type="button" data-tab="news">공지 · 일정</button>
         <button class="small" type="button" data-tab="centers">교육 센터</button>
       </div>
       <div id="tab-photos"><div id="groups"></div></div>
+
+      <div id="tab-news" class="group" hidden>
+        <h2>공지사항 · 교육 일정</h2>
+        <p>홈 「공지 · 일정」에 나오는 내용입니다. 공지는 <b>📌 중요</b>가 맨 위, 나머지는 날짜 최신순으로 나옵니다. 일정은 달력과 「다가오는 일정」에 날짜순으로 자동 정리됩니다. <b>숨기기</b>는 삭제하지 않고 사이트에서만 안 보이게 합니다. 다 고친 뒤 <b>공지 · 일정 저장</b>을 누르면 한국어 · 영어 · 일본어 페이지에 함께 반영됩니다.</p>
+        <div class="ctool">
+          <button class="primary small" type="button" id="n-save">공지 · 일정 저장</button>
+          <button class="small" type="button" id="n-reload">다시 불러오기</button>
+          <p class="msg" id="n-msg"></p>
+        </div>
+        <h3 class="nsub">공지사항 <button class="small" type="button" id="n-add">+ 공지 추가</button></h3>
+        <div class="clist" id="n-list"></div>
+        <h3 class="nsub">교육 · 수업 일정 <button class="small" type="button" id="e-add">+ 일정 추가</button></h3>
+        <div class="clist" id="e-list"></div>
+      </div>
 
       <div id="tab-centers" class="group" hidden>
         <h2>전국 교육 센터</h2>
@@ -670,9 +687,168 @@
       document.querySelectorAll('.tabs button').forEach((x) => x.classList.toggle('on', x === b));
       $('tab-photos').hidden = b.dataset.tab !== 'photos';
       $('tab-centers').hidden = b.dataset.tab !== 'centers';
+      $('tab-news').hidden = b.dataset.tab !== 'news';
       if (b.dataset.tab === 'centers' && !centers) loadCenters();
+      if (b.dataset.tab === 'news' && !news) loadNews();
     }));
-    window.addEventListener('beforeunload', (e) => { if (centersDirty) { e.preventDefault(); e.returnValue = ''; } });
+    window.addEventListener('beforeunload', (e) => { if (centersDirty || newsDirty) { e.preventDefault(); e.returnValue = ''; } });
+
+    // ---------- 공지 · 일정 ----------
+    const NEWS_PATH = 'data/schedule.json';
+    const CATS = ['강사 교육', '워크숍', '특강', '수업', '행사', '휴무'];
+    let news = null, newsDirty = false;
+    const nMsg = (t, k) => setMsg($('n-msg'), t, k);
+    const nDirty = () => { newsDirty = true; nMsg('저장하지 않은 변경 사항이 있습니다. 「공지 · 일정 저장」을 눌러 주세요.'); };
+    const todayStr = () => { const d = new Date(); return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0'); };
+    async function loadNews() {
+      nMsg('불러오는 중…');
+      try {
+        let j;
+        try { j = JSON.parse(fromB64((await gh('/contents/' + NEWS_PATH + '?ref=' + BRANCH)).content)); }
+        catch (e) { j = await (await fetch(SITE + NEWS_PATH + '?t=' + Date.now(), { cache: 'no-store' })).json().catch(() => ({})); }
+        news = { notices: j.notices || [], events: j.events || [] };
+        newsDirty = false;
+        renderNews();
+        nMsg('공지 ' + news.notices.length + '개 · 일정 ' + news.events.length + '개');
+      } catch (e) { nMsg('불러오지 못했습니다: ' + e.message, 'err'); }
+    }
+    // 이 탭 전용 입력칸 (값이 바뀌면 nDirty)
+    function nField(label, value, onInput, opts = {}) {
+      const wrap = document.createElement('div');
+      const lb = document.createElement('label'); lb.textContent = label; wrap.appendChild(lb);
+      const inp = document.createElement(opts.area ? 'textarea' : 'input');
+      if (!opts.area) inp.type = opts.type || 'text';
+      inp.value = value == null ? '' : value;
+      if (opts.ph) inp.placeholder = opts.ph;
+      inp.addEventListener(opts.type === 'date' ? 'change' : 'input', () => { onInput(inp.value); nDirty(); });
+      if (opts.type === 'date') inp.addEventListener('input', () => { onInput(inp.value); nDirty(); });
+      wrap.appendChild(inp);
+      if (opts.hint) { const h = document.createElement('p'); h.className = 'hint'; h.textContent = opts.hint; wrap.appendChild(h); }
+      return wrap;
+    }
+    function nCard(item, kind, idx, open) {
+      item.en = item.en || {}; item.ja = item.ja || {};
+      const d = document.createElement('details');
+      d.className = 'cedit' + (item.hidden ? ' is-hidden' : ''); d.open = !!open;
+      const sum = document.createElement('summary');
+      const list = kind === 'n' ? news.notices : news.events;
+      const head = () => {
+        sum.innerHTML = '';
+        const b = document.createElement('b');
+        b.textContent = (kind === 'n' && item.pinned ? '📌 ' : '') + (item.title || (kind === 'n' ? '(새 공지 · 제목 입력)' : '(새 일정 · 제목 입력)'));
+        const sp = document.createElement('span');
+        sp.textContent = kind === 'n' ? (item.date || '') : [item.category, (item.start || '날짜 없음') + (item.end && item.end > item.start ? ' ~ ' + item.end : '')].filter(Boolean).join(' · ');
+        const em = document.createElement('em'); em.textContent = d.open ? '접기' : '눌러서 수정';
+        const mv = document.createElement('div'); mv.className = 'cmove';
+        const hb = document.createElement('button'); hb.type = 'button';
+        hb.className = 'small hid' + (item.hidden ? ' on' : ''); hb.textContent = item.hidden ? '숨김 해제' : '숨기기';
+        hb.addEventListener('click', (e) => { e.preventDefault(); e.stopPropagation(); item.hidden = !item.hidden; d.classList.toggle('is-hidden', !!item.hidden); nDirty(); head(); });
+        mv.appendChild(hb);
+        sum.append(b, sp, em, mv);
+      };
+      head(); d.appendChild(sum);
+      d.addEventListener('toggle', head);
+      const body = document.createElement('div'); body.className = 'cbody'; d.appendChild(body);
+      const row = (...els) => { const r = document.createElement('div'); r.className = 'row2'; r.append(...els); body.appendChild(r); };
+      if (kind === 'n') {
+        body.appendChild(nField('제목 *', item.title, (v) => { item.title = v.trim(); head(); }, { ph: '예: 11월 휴무 안내' }));
+        row(
+          nField('게시 날짜', item.date, (v) => { item.date = v || null; head(); }, { type: 'date' }),
+          (() => {
+            const w = document.createElement('div');
+            w.innerHTML = '<label>중요 공지</label><div class="checks"><label><input type="checkbox"> 맨 위에 고정하고 「중요」 표시</label></div>';
+            const cb = w.querySelector('input'); cb.checked = !!item.pinned;
+            cb.addEventListener('change', () => { item.pinned = cb.checked; nDirty(); head(); });
+            return w;
+          })(),
+        );
+        body.appendChild(nField('내용', item.body, (v) => { item.body = v.trim() || null; }, { area: true, ph: '줄바꿈은 그대로 보입니다.' }));
+        body.appendChild(nField('링크 (선택)', item.link, (v) => { item.link = v.trim() || null; }, { ph: 'https:// (블로그 · 인스타 글 주소 등)' }));
+      } else {
+        body.appendChild(nField('일정 제목 *', item.title, (v) => { item.title = v.trim(); head(); }, { ph: '예: 자이로토닉 파운데이션 강사 교육' }));
+        const cw = document.createElement('div');
+        cw.innerHTML = '<label>종류</label><select></select>';
+        const sel = cw.querySelector('select');
+        [...new Set([...CATS, ...(item.category ? [item.category] : [])])].forEach((c) => { const o = document.createElement('option'); o.value = c; o.textContent = c; sel.appendChild(o); });
+        sel.value = item.category || CATS[0]; item.category = sel.value;
+        sel.addEventListener('change', () => { item.category = sel.value; nDirty(); head(); });
+        row(cw, nField('시간 (선택)', item.time, (v) => { item.time = v.trim() || null; }, { ph: '예: 10:00 ~ 17:00' }));
+        row(
+          nField('시작 날짜 *', item.start, (v) => { item.start = v || null; head(); }, { type: 'date' }),
+          nField('끝 날짜 (하루 일정이면 비워 두기)', item.end, (v) => { item.end = v || null; head(); }, { type: 'date' }),
+        );
+        body.appendChild(nField('장소 (선택)', item.place, (v) => { item.place = v.trim() || null; }, { ph: '예: 개비스튜디오 (천안 불당동)' }));
+        body.appendChild(nField('설명 (선택)', item.desc, (v) => { item.desc = v.trim() || null; }, { area: true, ph: '대상, 준비물, 비용, 정원 등' }));
+        body.appendChild(nField('자세히 보기 링크 (선택)', item.link, (v) => { item.link = v.trim() || null; }, { ph: 'https://', hint: '모든 일정에 「신청 · 문의」(카카오톡) 버튼이 자동으로 붙습니다. 「휴무」에는 붙지 않습니다.' }));
+      }
+      const trd = document.createElement('details'); trd.className = 'i18n';
+      trd.innerHTML = '<summary>영어 · 일본어 페이지 표기 (선택 · 비우면 한국어 그대로)</summary>';
+      const t1 = document.createElement('div'); t1.className = 'row2';
+      const k2 = kind === 'n' ? 'body' : 'desc';
+      const fs = [nField('영어 제목', item.en.title, (v) => { item.en.title = v.trim() || null; }), nField('일본어 제목', item.ja.title, (v) => { item.ja.title = v.trim() || null; })];
+      if (kind === 'e') fs.push(nField('영어 장소', item.en.place, (v) => { item.en.place = v.trim() || null; }), nField('일본어 장소', item.ja.place, (v) => { item.ja.place = v.trim() || null; }));
+      fs.push(nField(kind === 'n' ? '영어 내용' : '영어 설명', item.en[k2], (v) => { item.en[k2] = v.trim() || null; }, { area: true }), nField(kind === 'n' ? '일본어 내용' : '일본어 설명', item.ja[k2], (v) => { item.ja[k2] = v.trim() || null; }, { area: true }));
+      t1.append(...fs); trd.appendChild(t1); body.appendChild(trd);
+      const act = document.createElement('div'); act.className = 'cact';
+      const del = document.createElement('button'); del.type = 'button'; del.className = 'small del'; del.textContent = kind === 'n' ? '공지 삭제' : '일정 삭제';
+      del.addEventListener('click', () => { if (confirm('「' + (item.title || '이 항목') + '」를 삭제할까요? (저장해야 사이트에 반영됩니다)')) { list.splice(idx, 1); nDirty(); renderNews(); } });
+      act.appendChild(del); body.appendChild(act);
+      return d;
+    }
+    function renderNews(openKind, openIdx) {
+      const nl = $('n-list'), el = $('e-list'); nl.innerHTML = ''; el.innerHTML = '';
+      news.notices.forEach((n, i) => nl.appendChild(nCard(n, 'n', i, openKind === 'n' && i === openIdx)));
+      news.events.forEach((e, i) => el.appendChild(nCard(e, 'e', i, openKind === 'e' && i === openIdx)));
+      if (!news.notices.length) nl.innerHTML = '<p class="hint">공지가 없습니다. 「+ 공지 추가」를 눌러 주세요.</p>';
+      if (!news.events.length) el.innerHTML = '<p class="hint">일정이 없습니다. 「+ 일정 추가」를 눌러 주세요.</p>';
+      const target = openKind === 'n' ? nl.children[openIdx] : openKind === 'e' ? el.children[openIdx] : null;
+      if (target) target.scrollIntoView({ block: 'center' });
+    }
+    $('n-add').addEventListener('click', () => {
+      if (!news) return;
+      news.notices.unshift({ title: '', date: todayStr(), pinned: false, body: null, link: null, hidden: false, en: {}, ja: {} });
+      nDirty(); renderNews('n', 0);
+    });
+    $('e-add').addEventListener('click', () => {
+      if (!news) return;
+      news.events.unshift({ title: '', category: CATS[0], start: todayStr(), end: null, time: null, place: '개비스튜디오 (천안 불당동)', desc: null, link: null, hidden: false, en: {}, ja: {} });
+      nDirty(); renderNews('e', 0);
+    });
+    $('n-reload').addEventListener('click', () => { if (!newsDirty || confirm('저장하지 않은 변경 사항이 사라집니다. 다시 불러올까요?')) loadNews(); });
+    $('n-save').addEventListener('click', async () => {
+      if (!news) return;
+      const bn = news.notices.findIndex((n) => !n.title);
+      if (bn >= 0) { renderNews('n', bn); return nMsg((bn + 1) + '번째 공지의 제목을 입력해 주세요.', 'err'); }
+      const be = news.events.findIndex((e) => !e.title || !e.start);
+      if (be >= 0) { renderNews('e', be); return nMsg((be + 1) + '번째 일정의 제목과 시작 날짜를 입력해 주세요.', 'err'); }
+      const bad = news.events.findIndex((e) => e.end && e.end < e.start);
+      if (bad >= 0) { renderNews('e', bad); return nMsg((bad + 1) + '번째 일정의 끝 날짜가 시작 날짜보다 빠릅니다.', 'err'); }
+      const btn = $('n-save'); btn.disabled = true;
+      const stamp = Date.now();
+      const tx = (o, keys) => Object.fromEntries(keys.map((k) => [k, (o || {})[k] || null]));
+      const clean = {
+        updated: stamp,
+        notices: news.notices.map((n) => ({ title: n.title, date: n.date || null, pinned: !!n.pinned, body: n.body || null, link: n.link || null, hidden: !!n.hidden, en: tx(n.en, ['title', 'body']), ja: tx(n.ja, ['title', 'body']) })),
+        events: news.events.slice().sort((a, b) => a.start.localeCompare(b.start)).map((e) => ({ title: e.title, category: e.category || null, start: e.start, end: e.end && e.end > e.start ? e.end : null, time: e.time || null, place: e.place || null, desc: e.desc || null, link: e.link || null, hidden: !!e.hidden, en: tx(e.en, ['title', 'place', 'desc']), ja: tx(e.ja, ['title', 'place', 'desc']) })),
+      };
+      const content = utf8b64(JSON.stringify(clean, null, 2) + '\n');
+      const run = async () => { nMsg('저장 중…'); await putFile(NEWS_PATH, content, 'Admin: 공지 · 일정 수정'); };
+      const task = saveQueue.then(run, run);
+      saveQueue = task.catch(() => {});
+      try {
+        await task;
+        news.events = clean.events.map((e) => ({ ...e }));
+        newsDirty = false; btn.disabled = false; renderNews();
+        nMsg('저장 완료 · 사이트 반영 확인 중… (보통 1~3분, 이 화면을 닫아도 반영됩니다)');
+        const until = Date.now() + 10 * 60 * 1000;
+        let live = false;
+        while (Date.now() < until) {
+          try { const j = await (await fetch(SITE + NEWS_PATH + '?t=' + Date.now(), { cache: 'no-store' })).json(); if (j.updated >= stamp) { live = true; break; } } catch (e) { /* 아직 반영 전 */ }
+          await new Promise((r) => setTimeout(r, 10000));
+        }
+        if (!newsDirty) nMsg(live ? '✅ 사이트 반영 완료! 홈 「공지 · 일정」에 나옵니다.' : '저장은 되었지만 사이트 반영이 늦어지고 있습니다. 10분 뒤 사이트를 확인해 주세요.', live ? 'ok' : 'err');
+      } catch (e) { nMsg(e.message, 'err'); btn.disabled = false; }
+    });
 
     function enterDash() {
       show('dash');
