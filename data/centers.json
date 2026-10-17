@@ -1,6 +1,31 @@
 {
-  "updated": 1792194664197,
+  "updated": 1792221451905,
   "centers": [
+    {
+      "name": "인와이",
+      "area": null,
+      "address": "성남시 분당구 판교공원로3길 22",
+      "lessons": true,
+      "gyrokinesis": true,
+      "special": [
+        "아치웨이",
+        "점핑 스트레칭 보드"
+      ],
+      "training": [],
+      "website": null,
+      "instagram": "inystudio",
+      "note": null,
+      "en": {
+        "name": null,
+        "area": null,
+        "note": null
+      },
+      "ja": {
+        "name": null,
+        "area": null,
+        "note": null
+      }
+    },
     {
       "name": "서울자이로토닉협회",
       "area": "서울 서초구",
