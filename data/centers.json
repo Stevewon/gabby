@@ -1,5 +1,5 @@
 {
-  "updated": 1792305164249,
+  "updated": 1792305418968,
   "centers": [
     {
       "name": "서울자이로토닉협회",
@@ -95,8 +95,8 @@
     },
     {
       "name": "자이로토닉 에코",
-      "area": "서울 성동구 성수동",
-      "address": "서울 성동구 성수일로1길 3, 6층",
+      "area": "서울 강남구",
+      "address": "강남구 도산대로85길 30 2층 206호",
       "lessons": true,
       "gyrokinesis": true,
       "special": [
@@ -110,7 +110,7 @@
         "자이로키네시스 최종 인증"
       ],
       "website": null,
-      "instagram": null,
+      "instagram": "gyrotonic.eco_cheongdam",
       "note": null,
       "en": {
         "name": "GYROTONIC® Echo",
@@ -121,6 +121,31 @@
         "name": "ジャイロトニック エコー",
         "area": "ソウル 城東区 聖水洞",
         "note": "公式登録住所 · 清潭・三成・松島にも支店"
+      }
+    },
+    {
+      "name": "전주 후 스파인",
+      "area": "전북 전주",
+      "address": "전북 전주시 완산구 홍산로 238",
+      "lessons": true,
+      "gyrokinesis": true,
+      "special": [],
+      "training": [
+        "자이로토닉 파운데이션",
+        "자이로키네시스 프리트레이닝"
+      ],
+      "website": null,
+      "instagram": "hoospine_haksusung",
+      "note": null,
+      "en": {
+        "name": "Hoospine",
+        "area": "Jeonju, Jeonbuk",
+        "note": null
+      },
+      "ja": {
+        "name": "フースパイン",
+        "area": "全北 全州",
+        "note": null
       }
     },
     {
@@ -152,31 +177,6 @@
       "ja": {
         "name": "アーチ・アンド・カール",
         "area": "ソウル 江南区",
-        "note": null
-      }
-    },
-    {
-      "name": "전주 후 스파인",
-      "area": "전북 전주",
-      "address": "전북 전주시 완산구 홍산로 238",
-      "lessons": true,
-      "gyrokinesis": true,
-      "special": [],
-      "training": [
-        "자이로토닉 파운데이션",
-        "자이로키네시스 프리트레이닝"
-      ],
-      "website": null,
-      "instagram": "hoospine_haksusung",
-      "note": null,
-      "en": {
-        "name": "Hoospine",
-        "area": "Jeonju, Jeonbuk",
-        "note": null
-      },
-      "ja": {
-        "name": "フースパイン",
-        "area": "全北 全州",
         "note": null
       }
     }
