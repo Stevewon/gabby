@@ -1,5 +1,5 @@
 {
-  "updated": 1792297845532,
+  "updated": 1792299634003,
   "notices": [
     {
       "title": "홈페이지에서 공지사항 · 교육 일정을 안내합니다",
@@ -20,13 +20,76 @@
   ],
   "events": [
     {
-      "title": "Don Master",
+      "title": "Don Friedewald (GT2-2)",
       "category": "강사 교육",
       "start": "2026-11-07",
       "end": "2026-11-09",
       "time": "09:00~18:00",
-      "place": "자이로토닉코드(청담)",
-      "desc": null,
+      "place": "ANYFITGYROTONIC",
+      "desc": "대표원장 코스 교육기간 중 휴무입니다.",
+      "link": null,
+      "hidden": false,
+      "en": {
+        "title": null,
+        "place": null,
+        "desc": null
+      },
+      "ja": {
+        "title": null,
+        "place": null,
+        "desc": null
+      }
+    },
+    {
+      "title": "Erika Hassan (GK1 FOUNDATION)",
+      "category": "강사 교육",
+      "start": "2026-11-13",
+      "end": "2026-11-17",
+      "time": "09:00~18:00",
+      "place": "GYROTONICCHORD(청담)",
+      "desc": "대표원장 코스 교육기간 중 휴무입니다.",
+      "link": null,
+      "hidden": false,
+      "en": {
+        "title": null,
+        "place": null,
+        "desc": null
+      },
+      "ja": {
+        "title": null,
+        "place": null,
+        "desc": null
+      }
+    },
+    {
+      "title": "Erika Hassan (GK1 FOUNDATION)",
+      "category": "강사 교육",
+      "start": "2026-11-19",
+      "end": "2026-11-22",
+      "time": "09:00~18:00",
+      "place": "GYROTONICCHORD(청담)",
+      "desc": "대표원장 코스 교육기간 중 휴무입니다.",
+      "link": null,
+      "hidden": false,
+      "en": {
+        "title": null,
+        "place": null,
+        "desc": null
+      },
+      "ja": {
+        "title": null,
+        "place": null,
+        "desc": null
+      }
+    },
+    {
+      "title": "Erika Hassan (GK1 REVIEW)",
+      "category": "강사 교육",
+      "start": "2027-03-19",
+      "end": "2027-03-21",
+      "time": null,
+      "place": "GYROTONICCHORD(청담)",
+      "desc": "대표원장 코스 교육기간 중 휴무입니다.",
       "link": null,
       "hidden": false,
       "en": {
