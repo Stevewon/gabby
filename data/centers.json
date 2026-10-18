@@ -1,5 +1,5 @@
 {
-  "updated": 1792306088228,
+  "updated": 1792306497845,
   "centers": [
     {
       "name": "서울자이로토닉협회",
@@ -50,7 +50,7 @@
         "점핑 스트레칭 보드 · 레그 익스텐션 · 자이로토너 과정"
       ],
       "website": "http://www.gyrotonicinspine.com",
-      "instagram": null,
+      "instagram": "gyrotonic_inspine_busan",
       "note": null,
       "en": {
         "name": "GYROTONIC® InSpine Busan",
@@ -129,9 +129,11 @@
       "address": "전북 전주시 완산구 홍산로 238",
       "lessons": true,
       "gyrokinesis": true,
-      "special": [],
+      "special": [
+        "점핑 스트레칭 보드"
+      ],
       "training": [
-        "자이로토닉 파운데이션",
+        "자이로토닉 파운데이션. 리뷰",
         "자이로키네시스 프리트레이닝"
       ],
       "website": null,
