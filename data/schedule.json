@@ -1,5 +1,5 @@
 {
-  "updated": 1792297537601,
+  "updated": 1792297845532,
   "notices": [
     {
       "title": "홈페이지에서 공지사항 · 교육 일정을 안내합니다",
@@ -18,5 +18,27 @@
       }
     }
   ],
-  "events": []
+  "events": [
+    {
+      "title": "Don Master",
+      "category": "강사 교육",
+      "start": "2026-11-07",
+      "end": "2026-11-09",
+      "time": "09:00~18:00",
+      "place": "자이로토닉코드(청담)",
+      "desc": null,
+      "link": null,
+      "hidden": false,
+      "en": {
+        "title": null,
+        "place": null,
+        "desc": null
+      },
+      "ja": {
+        "title": null,
+        "place": null,
+        "desc": null
+      }
+    }
+  ]
 }
