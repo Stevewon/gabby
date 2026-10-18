@@ -1,5 +1,5 @@
 {
-  "updated": 1792305418968,
+  "updated": 1792306088228,
   "centers": [
     {
       "name": "서울자이로토닉협회",
@@ -20,7 +20,7 @@
       ],
       "website": "http://www.gyrotonicseoul.co.kr",
       "instagram": null,
-      "note": "2005년 국내 최초 본사 승인 교육센터",
+      "note": "국내 최초 본사 승인 교육센터",
       "en": {
         "name": "GYROTONIC® Seoul Association",
         "area": "Seocho-gu, Seoul",
@@ -37,7 +37,7 @@
       "area": "부산 동래구",
       "address": "부산 동래구 충렬대로 103, 8층",
       "lessons": true,
-      "gyrokinesis": null,
+      "gyrokinesis": true,
       "special": [
         "아치웨이",
         "점핑 스트레칭 보드",
