@@ -1,5 +1,5 @@
 {
-  "updated": 1792299850081,
+  "updated": 1792300302310,
   "notices": [
     {
       "title": "홈페이지에서 공지사항 · 교육 일정을 안내합니다",
@@ -62,6 +62,27 @@
       }
     },
     {
+      "title": "추계학술대회 (대한내분비학회)",
+      "category": "워크숍",
+      "start": "2026-10-31",
+      "end": null,
+      "time": "09:00~18:00",
+      "place": null,
+      "desc": "대표원장 코스 교육기간 중 휴무입니다.",
+      "link": null,
+      "hidden": false,
+      "en": {
+        "title": null,
+        "place": null,
+        "desc": null
+      },
+      "ja": {
+        "title": null,
+        "place": null,
+        "desc": null
+      }
+    },
+    {
       "title": "Don Friedewald (GT2-2)",
       "category": "강사 교육",
       "start": "2026-11-07",
@@ -88,7 +109,7 @@
       "start": "2026-11-13",
       "end": "2026-11-17",
       "time": "09:00~18:00",
-      "place": "GYROTONICCHORD(청담)",
+      "place": "GYROTONICCHORD",
       "desc": "대표원장 코스 교육기간 중 휴무입니다.",
       "link": null,
       "hidden": false,
@@ -109,7 +130,7 @@
       "start": "2026-11-19",
       "end": "2026-11-22",
       "time": "09:00~18:00",
-      "place": "GYROTONICCHORD(청담)",
+      "place": "GYROTONICCHORD",
       "desc": "대표원장 코스 교육기간 중 휴무입니다.",
       "link": null,
       "hidden": false,
@@ -130,7 +151,7 @@
       "start": "2027-03-19",
       "end": "2027-03-21",
       "time": null,
-      "place": "GYROTONICCHORD(청담)",
+      "place": "GYROTONICCHORD",
       "desc": "대표원장 코스 교육기간 중 휴무입니다.",
       "link": null,
       "hidden": false,
