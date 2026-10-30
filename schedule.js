@@ -39,6 +39,8 @@
   const catCls = (c) => (CAT[c] ? CAT[c][2] : 'c-etc');
   const KAKAO = 'https://open.kakao.com/o/s1LTdccg';
   const esc = (s) => String(s == null ? '' : s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+  // 링크는 http(s)만 허용 (javascript: 등 차단)
+  const safe = (u) => (/^https?:\/\//i.test(String(u || '').trim()) ? String(u).trim() : '');
   const para = (s) => esc(s).replace(/\n/g, '<br>');
   const tr = (o, k) => (tk && o[tk] && o[tk][k]) || o[k];
   const d0 = (s) => { const [y, m, d] = String(s).split('-').map(Number); return new Date(y, m - 1, d); };
@@ -65,7 +67,7 @@
       ${e.time ? `<p class="ev-line"><b>${t('time')}</b> ${esc(e.time)}</p>` : ''}
       ${tr(e, 'place') ? `<p class="ev-line"><b>${t('place')}</b> ${esc(tr(e, 'place'))}</p>` : ''}
       ${tr(e, 'desc') ? `<p class="ev-desc">${para(tr(e, 'desc'))}</p>` : ''}
-      ${e.category === '휴무' ? '' : `<p class="ev-links">${e.link ? `<a href="${esc(e.link)}" target="_blank" rel="noopener">${t('link')} →</a>` : ''}<a href="${KAKAO}" target="_blank" rel="noopener" class="ev-apply">${t('apply')}</a></p>`}
+      ${e.category === '휴무' ? '' : `<p class="ev-links">${safe(e.link) ? `<a href="${esc(safe(e.link))}" target="_blank" rel="noopener">${t('link')} →</a>` : ''}<a href="${KAKAO}" target="_blank" rel="noopener" class="ev-apply">${t('apply')}</a></p>`}
     </article>`;
 
     // 공지사항
@@ -73,7 +75,7 @@
       <h3 class="news-h">${t('notice')}</h3>
       <div class="notice-list">${notices.map((n, i) => `<details class="notice${n.pinned ? ' pinned' : ''}"${i >= 4 ? ' data-more hidden' : ''}${i === 0 && n.pinned ? ' open' : ''}>
         <summary>${n.pinned ? `<span class="n-pin">${t('pinned')}</span>` : ''}<span class="n-title">${esc(tr(n, 'title'))}</span><span class="n-date">${esc(String(n.date || '').replace(/-/g, '.'))}</span></summary>
-        <div class="n-body">${tr(n, 'body') ? `<p>${para(tr(n, 'body'))}</p>` : ''}${n.link ? `<p><a href="${esc(n.link)}" target="_blank" rel="noopener">${t('link')} →</a></p>` : ''}</div>
+        <div class="n-body">${tr(n, 'body') ? `<p>${para(tr(n, 'body'))}</p>` : ''}${safe(n.link) ? `<p><a href="${esc(safe(n.link))}" target="_blank" rel="noopener">${t('link')} →</a></p>` : ''}</div>
       </details>`).join('')}</div>
       ${notices.length > 4 ? `<button type="button" class="news-more">${t('more')}</button>` : ''}
     </div>` : '';

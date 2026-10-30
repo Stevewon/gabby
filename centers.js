@@ -68,7 +68,7 @@ const CENTER_TERMS = [
       <p class="center-detail">📍 ${esc(c.address || (area ? area + ' (' + t('pending') + ')' : t('noaddr')))}</p>
       <div class="center-links">
         <a href="${mapUrl}" target="_blank" rel="noopener">${t('map')}</a>
-        ${c.website ? `<a href="${esc(c.website)}" target="_blank" rel="noopener">${t('web')}</a>` : ''}
+        ${/^https?:\/\//i.test(String(c.website || '').trim()) ? `<a href="${esc(String(c.website).trim())}" target="_blank" rel="noopener">${t('web')}</a>` : ''}
         ${c.instagram ? `<a href="https://www.instagram.com/${esc(c.instagram)}/" target="_blank" rel="noopener">${t('insta')}</a>` : ''}
       </div>
     </article>`;
