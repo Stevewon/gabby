@@ -1,5 +1,5 @@
 {
-  "updated": 1793608443379,
+  "updated": 1793609583030,
   "notices": [
     {
       "title": "홈페이지에서 공지사항 · 교육 일정을 안내합니다",
@@ -83,7 +83,7 @@
       }
     },
     {
-      "title": "Don Friedewald Master Trainer (GT2-2)",
+      "title": "Don Friedewald Master Trainer (GT2-2) PRE.",
       "category": "강사 교육",
       "start": "2026-11-07",
       "end": "2026-11-09",
@@ -132,6 +132,27 @@
       "time": "09:00~18:00",
       "place": "GYROTONICCHORD",
       "desc": "대표원장 코스 교육기간 중 휴무입니다.",
+      "link": null,
+      "hidden": false,
+      "en": {
+        "title": null,
+        "place": null,
+        "desc": null
+      },
+      "ja": {
+        "title": null,
+        "place": null,
+        "desc": null
+      }
+    },
+    {
+      "title": "이주영 Master Trainer (GT2-2) FOUNDATION",
+      "category": "강사 교육",
+      "start": "2027-02-13",
+      "end": "2027-02-16",
+      "time": "08:00-18:00",
+      "place": "아치앤컬",
+      "desc": null,
       "link": null,
       "hidden": false,
       "en": {
